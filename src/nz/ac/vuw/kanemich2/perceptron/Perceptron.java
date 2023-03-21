@@ -1,6 +1,6 @@
-package nz.ac.vuw.kanemich2.perception;
+package nz.ac.vuw.kanemich2.perceptron;
 
-public class Perception {
+public class Perceptron {
     public static void main(String[] args) {
         System.out.print("Hello, ");
         if (args.length == 0) {

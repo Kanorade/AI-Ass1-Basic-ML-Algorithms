@@ -2,14 +2,25 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="ass1-Perceptron:jar" />
+      <artifact name="ass1-perceptron:jar" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae9de2c7-325f-4fc7-aa35-c5da501e1ccd" name="Changes" comment="Initial commit" />
+    <list default="true" id="ae9de2c7-325f-4fc7-aa35-c5da501e1ccd" name="Changes" comment="Initial commit">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/ass1_decTree_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/ass1_perceptron_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/nz/ac/vuw/kanemich2/decTree/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/nz/ac/vuw/kanemich2/knn/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/nz/ac/vuw/kanemich2/perceptron/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/ass1_DecTree_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/ass1_KNN_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/ass1_knn_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/ass1_Perceptron_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nz/ac/vuw/kanemich2/perception/Perception.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nz/ac/vuw/kanemich2/perceptron/Perceptron.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,86 +50,52 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/HP-Admin/IdeaProjects/comp307ass1/out/artifacts/ass1_Perceptron_jar/ass1-perceptron.jar",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/kanemich2/IdeaProjects/comp307ass1/out/artifacts/ass1_perceptron_jar/ass1-perceptron.jar",
     "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"
   }
 }]]></component>
-  <component name="RunManager" selected="JAR Application.Ass1-Perceptron">
-    <configuration name="KNN" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="nz.ac.vuw.kanemich2.knn.KNN" />
-      <module name="comp307ass1" />
-      <option name="PROGRAM_PARAMETERS" value="Neighbour" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="nz.ac.vuw.kanemich2.knn.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Perception" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="nz.ac.vuw.kanemich2.perception.Perception" />
-      <module name="comp307ass1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="nz.ac.vuw.kanemich2.perception.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Ass1-DesTree" type="JarApplication">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/ass1_DecTree_jar/ass1-DecTree.jar" />
-      <option name="PROGRAM_PARAMETERS" value="Decision Tree" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\HP-Admin\IdeaProjects\comp307ass1" />
+  <component name="RunManager" selected="JAR Application.KNN">
+    <configuration name="DecisonTree" type="JarApplication">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/ass1_decTree_jar/ass1-decTree.jar" />
+      <option name="PROGRAM_PARAMETERS" value="Mr Decider" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2">
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="ass1-Perceptron:jar" />
+          <artifact name="ass1-decTree:jar" />
         </option>
       </method>
     </configuration>
-    <configuration name="Ass1-KNN" type="JarApplication">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/ass1_KNN_jar/ass1-knn.jar" />
-      <option name="PROGRAM_PARAMETERS" value="Neighbour" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\HP-Admin\IdeaProjects\comp307ass1" />
+    <configuration name="KNN" type="JarApplication">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/ass1_knn_jar/ass1-knn.jar" />
+      <option name="PROGRAM_PARAMETERS" value="there neighbour" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2">
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="ass1-Perceptron:jar" />
+          <artifact name="ass1-knn:jar" />
         </option>
       </method>
     </configuration>
-    <configuration name="Ass1-Perceptron" type="JarApplication">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/ass1_Perceptron_jar/ass1-perceptron.jar" />
+    <configuration name="Perceptron" type="JarApplication">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/ass1_perceptron_jar/ass1-perceptron.jar" />
       <option name="PROGRAM_PARAMETERS" value="Perceptron" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\HP-Admin\IdeaProjects\comp307ass1" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2">
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="ass1-Perceptron:jar" />
+          <artifact name="ass1-perceptron:jar" />
         </option>
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.KNN" />
-      <item itemvalue="Application.Perception" />
-      <item itemvalue="JAR Application.Ass1-Perceptron" />
-      <item itemvalue="JAR Application.Ass1-KNN" />
-      <item itemvalue="JAR Application.Ass1-DesTree" />
+      <item itemvalue="JAR Application.KNN" />
+      <item itemvalue="JAR Application.DecisonTree" />
+      <item itemvalue="JAR Application.Perceptron" />
     </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.Perception" />
-        <item itemvalue="Application.KNN" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -128,6 +105,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1678240291649</updated>
+      <workItem from="1679377969334" duration="4072000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1679369838681</created>
@@ -145,6 +123,20 @@
     </task>
     <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
