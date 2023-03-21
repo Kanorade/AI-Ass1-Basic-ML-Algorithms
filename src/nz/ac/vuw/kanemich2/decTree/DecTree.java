@@ -2,7 +2,7 @@ package nz.ac.vuw.kanemich2.decTree;
 
 public class DecTree {
     public static void main(String[] args) {
-        System.out.print("Hello, ");
+        System.out.prints("Hello, ");
         if (args.length == 0) {
             System.out.println("World!");
         } else {
