@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="ass1-Perceptron:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ae9de2c7-325f-4fc7-aa35-c5da501e1ccd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/ass1_DecTree_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/ass1_KNN_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/ass1_Perceptron_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/comp307ass1.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/nz/ac/vuw/kanemich2/decTree/DecTree.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/nz/ac/vuw/kanemich2/knn/KNN.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/nz/ac/vuw/kanemich2/perception/Perception.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2MiAyqzBMwIETIfipRoDqhDr7Cv" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/HP-Admin/IdeaProjects/comp307ass1/out/artifacts/ass1_Perceptron_jar/ass1-perceptron.jar",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
+  }
+}]]></component>
+  <component name="RunManager" selected="JAR Application.Ass1-Perceptron">
+    <configuration name="KNN" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="nz.ac.vuw.kanemich2.knn.KNN" />
+      <module name="comp307ass1" />
+      <option name="PROGRAM_PARAMETERS" value="Neighbour" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="nz.ac.vuw.kanemich2.knn.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Perception" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="nz.ac.vuw.kanemich2.perception.Perception" />
+      <module name="comp307ass1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="nz.ac.vuw.kanemich2.perception.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Ass1-DesTree" type="JarApplication">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/ass1_DecTree_jar/ass1-DecTree.jar" />
+      <option name="PROGRAM_PARAMETERS" value="Decision Tree" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\HP-Admin\IdeaProjects\comp307ass1" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="ass1-Perceptron:jar" />
+        </option>
+      </method>
+    </configuration>
+    <configuration name="Ass1-KNN" type="JarApplication">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/ass1_KNN_jar/ass1-knn.jar" />
+      <option name="PROGRAM_PARAMETERS" value="Neighbour" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\HP-Admin\IdeaProjects\comp307ass1" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="ass1-Perceptron:jar" />
+        </option>
+      </method>
+    </configuration>
+    <configuration name="Ass1-Perceptron" type="JarApplication">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/ass1_Perceptron_jar/ass1-perceptron.jar" />
+      <option name="PROGRAM_PARAMETERS" value="Perceptron" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\HP-Admin\IdeaProjects\comp307ass1" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="ass1-Perceptron:jar" />
+        </option>
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.KNN" />
+      <item itemvalue="Application.Perception" />
+      <item itemvalue="JAR Application.Ass1-Perceptron" />
+      <item itemvalue="JAR Application.Ass1-KNN" />
+      <item itemvalue="JAR Application.Ass1-DesTree" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Perception" />
+        <item itemvalue="Application.KNN" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ae9de2c7-325f-4fc7-aa35-c5da501e1ccd" name="Changes" comment="" />
+      <created>1678240291649</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1678240291649</updated>
+    </task>
+    <servers />
+  </component>
+</project>
