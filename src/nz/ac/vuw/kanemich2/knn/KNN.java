@@ -8,11 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KNN {
+    private record WineData (ArrayList<Float> values, int classifier){}
     public KNN(String[] args) {
         if (args.length == 0) {
             System.out.println("USAGE ass1-knn.jar <training-filename> <test-filename> <optional k-value>");
         } else {
-            List<String> trainingData = null;
+            List<WineData> trainingData = null;
             try {
                 trainingData = readFile(args[0]);
             } catch (FileNotFoundException e) {
@@ -25,23 +26,29 @@ public class KNN {
                 throw new RuntimeException(e);
             }
 
-            for (String data : trainingData) {
-                System.out.println(data);
+            for (WineData data : trainingData) {
+                System.out.println(data.toString());
             }
 
         }
     }
 
-    private List<String> readFile(String fileName) throws IOException {
+    private List<WineData> readFile(String fileName) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
-        List<String> fileData = new ArrayList<>();
+        List<WineData> fileData = new ArrayList<>();
         String line;
-        boolean isFirstline = true;
+        boolean isFirstLine = true;
         while ((line = br.readLine()) != null) {
-            if (isFirstline) {
-                isFirstline =  false;       // Ignore the first line as it's all the labels
+            if (isFirstLine) {
+                isFirstLine =  false;       // Ignore the first line as it's all the labels
             } else {
-                fileData.add(line);
+                String[] tokens = line.split(" ");
+                ArrayList<Float> wineValues = new ArrayList<>();
+                for (int i = 0; i < tokens.length-1; i++) {
+                    wineValues.add(Float.parseFloat(tokens[i]));
+                }
+                int wineClass = Integer.parseInt(tokens[tokens.length-1]);
+                fileData.add(new WineData(wineValues, wineClass));
             }
         }
         return fileData;
@@ -50,5 +57,3 @@ public class KNN {
         KNN knn = new KNN(args);
     }
 }
-
-
