@@ -19,9 +19,9 @@ public class KNN {
             try {
                 trainingData = readFile(args[0]);
             } catch (FileNotFoundException e) {
-                System.err.println("Couldn't find training file. Make sure file is in same directory as the jar file. " +
-                        "Otherwise you need to include the entire filepath too.");
                 System.err.println("File \"" + args[0] + "\" not found.");
+                System.err.println("Make sure file is in same directory as the jar file. " +
+                        "Otherwise you need to include the entire filepath too.");
                 System.exit(0);
             } catch (IOException e) {
                 System.out.println("Something went wrong reading the training file.");
@@ -32,9 +32,9 @@ public class KNN {
             try {
                 testData = readFile(args[1]);
             } catch (FileNotFoundException e) {
-                System.err.println("Couldn't find test file. Make sure file is in same directory as the jar file. " +
-                        "Otherwise you need to include the entire filepath too.");
                 System.err.println("File \"" + args[1] + "\" not found.");
+                System.err.println("Make sure file is in same directory as the jar file. " +
+                        "Otherwise you need to include the entire filepath too.");
                 System.exit(0);
             } catch (IOException e) {
                 System.out.println("Something went wrong reading the test file.");
