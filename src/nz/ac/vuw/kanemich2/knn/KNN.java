@@ -11,6 +11,12 @@ public class KNN {
     private record WineData (ArrayList<Float> values, int classifier){}
     private List<WineData> trainingData;
     private List<WineData> testData;
+
+    /**
+     * Constructor takes the data from the training and test files specified in the arguments and
+     * organises them into two lists
+     * @param args Arguments given when the app was executed.
+     */
     public KNN(String[] args) {
         if (args.length == 0 || args.length == 1) {
             System.out.println("USAGE ass1-knn.jar <training-filename> <test-filename> <optional k-value>");
@@ -48,6 +54,12 @@ public class KNN {
         }
     }
 
+    /**
+     * Read the text file and organises it into a usable list.
+     * @param fileName The name of the data file to be read.
+     * @return List<WineData> Usable list of wine data with the classifications included.
+     * @throws IOException Thrown if the file is missing or there's an error reading the file.
+     */
     private List<WineData> readFile(String fileName) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         List<WineData> fileData = new ArrayList<>();
@@ -55,7 +67,7 @@ public class KNN {
         boolean isFirstLine = true;
         while ((line = br.readLine()) != null) {
             if (isFirstLine) {
-                isFirstLine =  false;       // Ignore the first line as it's all the labels
+                isFirstLine = false;       // Ignore the first line as it's all the labels
             } else {
                 String[] tokens = line.split(" ");
                 ArrayList<Float> wineValues = new ArrayList<>();
@@ -70,5 +82,6 @@ public class KNN {
     }
     public static void main(String[] args) {
         KNN knn = new KNN(args);
+        //knn.makePredictions();
     }
 }
