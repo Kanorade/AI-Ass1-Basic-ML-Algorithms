@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KNN {
-    private record WineData (ArrayList<Float> values, int classifier){}
-    private List<WineData> trainingData;
-    private List<WineData> testData;
+    private record Wine(ArrayList<Float> values, int classifier){}
+    private List<Wine> trainingWines;
+    private List<Wine> testWines;
 
     /**
      * Constructor takes the data from the training and test files specified in the arguments and
@@ -23,7 +23,7 @@ public class KNN {
         } else {
             /* Reading Training File */
             try {
-                trainingData = readFile(args[0]);
+                trainingWines = readFile(args[0]);
             } catch (FileNotFoundException e) {
                 System.err.println("File \"" + args[0] + "\" not found.");
                 System.err.println("Make sure file is in same directory as the jar file. " +
@@ -36,7 +36,7 @@ public class KNN {
 
             /* Reading Test File (just wanted separate meaningful error messages)*/
             try {
-                testData = readFile(args[1]);
+                testWines = readFile(args[1]);
             } catch (FileNotFoundException e) {
                 System.err.println("File \"" + args[1] + "\" not found.");
                 System.err.println("Make sure file is in same directory as the jar file. " +
@@ -47,9 +47,9 @@ public class KNN {
                 throw new RuntimeException(e);
             }
 
-            System.out.println("Number of instances:\n" +
-                    "Training: " + trainingData.size() + "\n" +
-                    "Test: " + testData.size());
+            System.out.println("Number of wine instances:\n" +
+                    "Training wines: " + trainingWines.size() + "\n" +
+                    "Test wines: " + testWines.size() + "\n");
 
         }
     }
@@ -60,9 +60,9 @@ public class KNN {
      * @return List<WineData> Usable list of wine data with the classifications included.
      * @throws IOException Thrown if the file is missing or there's an error reading the file.
      */
-    private List<WineData> readFile(String fileName) throws IOException {
+    private List<Wine> readFile(String fileName) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
-        List<WineData> fileData = new ArrayList<>();
+        List<Wine> fileData = new ArrayList<>();
         String line;
         boolean isFirstLine = true;
         while ((line = br.readLine()) != null) {
@@ -75,13 +75,49 @@ public class KNN {
                     wineValues.add(Float.parseFloat(tokens[i]));
                 }
                 int wineClass = Integer.parseInt(tokens[tokens.length-1]);
-                fileData.add(new WineData(wineValues, wineClass));
+                fileData.add(new Wine(wineValues, wineClass));
             }
         }
+        // close resources
+        //br.close();
         return fileData;
     }
+
+    private int classify(Wine testWine) {
+        return 0;
+    }
+
+    /**
+     * Make predictions on classifying the test wine and reporting on it.
+     */
+    private void makePredictions() {
+        //ArrayList<Integer> predictions;
+        System.out.println("Making predictions from tests:");
+        int wineNumber = 1;
+        int successCount = 0;
+        for (Wine testWine : testWines) {
+            System.out.print("Wine " + wineNumber + ": ");
+
+            System.out.print("Class Prediction = ");
+            int classPrediction = classify(testWine);
+            System.out.print(classPrediction + ", ");
+
+            System.out.print("Actual = " + testWine.classifier + "\t");
+            if (classPrediction == testWine.classifier) {
+                System.out.println("Success!");
+                successCount++;
+            } else {
+                System.out.println("Fail...");
+            }
+            wineNumber++;
+        }
+        System.out.print("\nAccuracy: ");
+        float accuracy = (float) successCount/testWines.size();
+        System.out.println(accuracy*100f + "%");
+    }
+
     public static void main(String[] args) {
         KNN knn = new KNN(args);
-        //knn.makePredictions();
+        knn.makePredictions();
     }
 }
