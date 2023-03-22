@@ -11,6 +11,7 @@ public class KNN {
     private record Wine(ArrayList<Float> values, int classifier){}
     private List<Wine> trainingWines;
     private List<Wine> testWines;
+    private int kValue = 1;
 
     /**
      * Constructor takes the data from the training and test files specified in the arguments and
@@ -92,7 +93,8 @@ public class KNN {
      */
     private void makePredictions() {
         //ArrayList<Integer> predictions;
-        System.out.println("Making predictions from tests:");
+        System.out.println(
+                "Making predictions of test wines using k-Nearest Neighbour where k = " + kValue + ":");
         int wineNumber = 1;
         int successCount = 0;
         for (Wine testWine : testWines) {
