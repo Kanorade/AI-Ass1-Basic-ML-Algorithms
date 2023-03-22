@@ -9,11 +9,13 @@ import java.util.List;
 
 public class KNN {
     private record WineData (ArrayList<Float> values, int classifier){}
+    private List<WineData> trainingData;
+    private List<WineData> testData;
     public KNN(String[] args) {
-        if (args.length == 0) {
+        if (args.length == 0 || args.length == 1) {
             System.out.println("USAGE ass1-knn.jar <training-filename> <test-filename> <optional k-value>");
         } else {
-            List<WineData> trainingData = null;
+            /* Reading Training File */
             try {
                 trainingData = readFile(args[0]);
             } catch (FileNotFoundException e) {
@@ -22,13 +24,26 @@ public class KNN {
                 System.err.println("File \"" + args[0] + "\" not found.");
                 System.exit(0);
             } catch (IOException e) {
-                System.out.println("Something went wrong reading the file.");
+                System.out.println("Something went wrong reading the training file.");
                 throw new RuntimeException(e);
             }
 
-            for (WineData data : trainingData) {
-                System.out.println(data.toString());
+            /* Reading Test File (just wanted separate meaningful error messages)*/
+            try {
+                testData = readFile(args[1]);
+            } catch (FileNotFoundException e) {
+                System.err.println("Couldn't find test file. Make sure file is in same directory as the jar file. " +
+                        "Otherwise you need to include the entire filepath too.");
+                System.err.println("File \"" + args[1] + "\" not found.");
+                System.exit(0);
+            } catch (IOException e) {
+                System.out.println("Something went wrong reading the test file.");
+                throw new RuntimeException(e);
             }
+
+            System.out.println("Number of instances:\n" +
+                    "Training: " + trainingData.size() + "\n" +
+                    "Test: " + testData.size());
 
         }
     }
