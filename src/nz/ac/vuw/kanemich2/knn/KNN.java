@@ -36,13 +36,13 @@ public class KNN {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         List<String> fileData = new ArrayList<>();
         String line;
-        //Boolean isFirstline = true;
+        boolean isFirstline = true;
         while ((line = br.readLine()) != null) {
-//            if (isFirstline) {
-//                // We want to ignore the first line as it all the labels
-//                isFirstline =  false;
-//            }
-            fileData.add(line);
+            if (isFirstline) {
+                isFirstline =  false;       // Ignore the first line as it's all the labels
+            } else {
+                fileData.add(line);
+            }
         }
         return fileData;
     }
