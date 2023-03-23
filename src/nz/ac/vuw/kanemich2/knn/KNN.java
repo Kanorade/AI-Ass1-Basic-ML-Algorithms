@@ -12,6 +12,7 @@ public class KNN {
     private List<Wine> trainingWines;
     private List<Wine> testWines;
     private int kValue = 1;
+    private List<Float> trainingRanges;
 
     /**
      * Constructor takes the data from the training and test files specified in the arguments and
@@ -52,6 +53,9 @@ public class KNN {
                     "Training wines: " + trainingWines.size() + "\n" +
                     "Test wines: " + testWines.size() + "\n");
 
+            System.out.println("Finding value ranges for training wine:");
+            trainingRanges = setUpRanges(trainingWines);
+            System.out.println(trainingRanges + "\n");
         }
     }
 
@@ -83,9 +87,45 @@ public class KNN {
         //br.close();
         return fileData;
     }
-
-    private int classify(Wine testWine) {
-        return 0;
+    private ArrayList<Float> setUpRanges(List<Wine> wineList) {
+        assert (!wineList.isEmpty());
+        // get ranges for each wine feature in the training set
+        ArrayList<Float> ranges = new ArrayList<>();
+        int wineValueSize = wineList.get(0).values.size();
+        for (int i = 0; i < wineValueSize; i++) {
+            float min = Float.MAX_VALUE;
+            float max = Float.MIN_VALUE;
+            for(Wine wine : trainingWines) {
+                if (wine.values.get(i) < min)
+                    min = wine.values.get(i);
+                if (wine.values.get(i) > max)
+                    max = wine.values.get(i);
+            }
+            ranges.add(max-min);
+        }
+        return ranges;
+    }
+    private double findNormalisedEuclideanDistance(Wine a, Wine b) {
+        double distanceSquared = 0;
+        for (int i = 0; i < a.values.size(); i++) {
+            double difference = a.values.get(i) - b.values.get(i);
+            double calculation = (difference * difference) /
+                    (trainingRanges.get(i) * trainingRanges.get(i));
+            distanceSquared += calculation;
+        }
+        return Math.sqrt(distanceSquared);
+    }
+    private int classify(Wine testWine, int k) {
+        double minDistance = Float.MAX_VALUE;
+        int closestWineClass = 0;
+        for (Wine wine : trainingWines) {
+            double distance = findNormalisedEuclideanDistance(testWine, wine);
+            if (minDistance > distance) {
+                minDistance = distance;
+                closestWineClass = wine.classifier;
+            }
+        }
+        return closestWineClass;
     }
 
     /**
@@ -101,7 +141,7 @@ public class KNN {
             System.out.print("Wine " + wineNumber + ": ");
 
             System.out.print("Class Prediction = ");
-            int classPrediction = classify(testWine);
+            int classPrediction = classify(testWine, kValue);
             System.out.print(classPrediction + ", ");
 
             System.out.print("Actual = " + testWine.classifier + "\t");
