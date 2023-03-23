@@ -23,31 +23,8 @@ public class KNN {
         if (args.length == 0 || args.length == 1) {
             System.out.println("USAGE ass1-knn.jar <training-filename> <test-filename> <optional k-value>");
         } else {
-            /* Reading Training File */
-            try {
-                trainingWines = readFile(args[0]);
-            } catch (FileNotFoundException e) {
-                System.err.println("File \"" + args[0] + "\" not found.");
-                System.err.println("Make sure file is in same directory as the jar file. " +
-                        "Otherwise you need to include the entire filepath too.");
-                System.exit(0);
-            } catch (IOException e) {
-                System.out.println("Something went wrong reading the training file.");
-                throw new RuntimeException(e);
-            }
-
-            /* Reading Test File (just wanted separate meaningful error messages)*/
-            try {
-                testWines = readFile(args[1]);
-            } catch (FileNotFoundException e) {
-                System.err.println("File \"" + args[1] + "\" not found.");
-                System.err.println("Make sure file is in same directory as the jar file. " +
-                        "Otherwise you need to include the entire filepath too.");
-                System.exit(0);
-            } catch (IOException e) {
-                System.out.println("Something went wrong reading the test file.");
-                throw new RuntimeException(e);
-            }
+            trainingWines = readFile(args[0]);
+            testWines = readFile(args[1]);
 
             System.out.println("Number of wine instances:\n" +
                     "Training wines: " + trainingWines.size() + "\n" +
@@ -63,28 +40,42 @@ public class KNN {
      * Read the text file and organises it into a usable list.
      * @param fileName The name of the data file to be read.
      * @return List<WineData> Usable list of wine data with the classifications included.
-     * @throws IOException Thrown if the file is missing or there's an error reading the file.
      */
-    private List<Wine> readFile(String fileName) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(fileName));
+    private List<Wine> readFile(String fileName) {
         List<Wine> fileData = new ArrayList<>();
-        String line;
-        boolean isFirstLine = true;
-        while ((line = br.readLine()) != null) {
-            if (isFirstLine) {
-                isFirstLine = false;       // Ignore the first line as it's all the labels
-            } else {
-                String[] tokens = line.split(" ");
-                ArrayList<Float> wineValues = new ArrayList<>();
-                for (int i = 0; i < tokens.length-1; i++) {
-                    wineValues.add(Float.parseFloat(tokens[i]));
+        try {
+            FileReader fr = new FileReader(fileName);
+            BufferedReader br = new BufferedReader(fr);
+
+            String line;
+            boolean isFirstLine = true;
+            while ((line = br.readLine()) != null) {
+                if (isFirstLine) {
+                    isFirstLine = false;       // Ignore the first line as it's all the labels
+                } else {
+                    String[] tokens = line.split(" ");
+                    ArrayList<Float> wineValues = new ArrayList<>();
+                    for (int i = 0; i < tokens.length - 1; i++) {
+                        wineValues.add(Float.parseFloat(tokens[i]));
+                    }
+                    int wineClass = Integer.parseInt(tokens[tokens.length - 1]);
+                    fileData.add(new Wine(wineValues, wineClass));
                 }
-                int wineClass = Integer.parseInt(tokens[tokens.length-1]);
-                fileData.add(new Wine(wineValues, wineClass));
             }
+            // close resources
+            fr.close();
+            br.close();
+
+        } catch (FileNotFoundException e) {
+            System.err.println("File \"" + fileName + "\" not found.");
+            System.err.println("Make sure file is in same directory as the jar file. " +
+                    "Otherwise you need to include the entire filepath too.");
+            System.exit(0);
+        } catch (IOException e) {
+            System.out.println("Something went wrong reading the file: " + fileName);
+            throw new RuntimeException(e);
         }
-        // close resources
-        //br.close();
+
         return fileData;
     }
     private ArrayList<Float> setUpRanges(List<Wine> wineList) {
