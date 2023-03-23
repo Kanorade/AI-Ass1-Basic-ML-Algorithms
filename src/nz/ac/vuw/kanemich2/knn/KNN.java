@@ -37,7 +37,8 @@ public class KNN {
     }
 
     /**
-     * Read the text file and organises it into a usable list.
+     * Method to read the text file and organises it into a usable list.
+     * Typically, being used in the constructor.
      * @param fileName The name of the data file to be read.
      * @return List<WineData> Usable list of wine data with the classifications included.
      */
@@ -78,6 +79,14 @@ public class KNN {
 
         return fileData;
     }
+
+    /**
+     * Convenience method to find the range of values for each wine feature
+     * for the provided list of Wines.
+     * Typically, being used in the constructor.
+     * @param wineList The training set used for this algorithm.
+     * @return The list of ranges for each of the wine features.
+     */
     private ArrayList<Float> setUpRanges(List<Wine> wineList) {
         assert (!wineList.isEmpty());
         // get ranges for each wine feature in the training set
@@ -96,16 +105,40 @@ public class KNN {
         }
         return ranges;
     }
-    private double findNormalisedEuclideanDistance(Wine a, Wine b) {
+
+    /**
+     * The method that does all the math. I tried to use variable names that make sense in context, but I apologise
+     * if it's still confusing. Essentially it's calculating the "distance" (d), or similarity, between two wines
+     * and it's values using the Euclidean distance formula: d^2 = Sum[(a-b)^2/R^2]
+     * <br>
+     * The expression in the square brackets is applied to each wine feature before adding them together.
+     * a and b represent the value of a specific feature for each wine, and R is the range of that feature provided
+     * on the training sets. The range is needed to normalise all the wine features and to ensure all the values are
+     * relative to each other.
+     * @param firstWine The first wine to find the distance from
+     * @param secondWine The second wine to find the distance to
+     * @return the distance between 2 wines using a normalized metric.
+     */
+    private double findNormalisedEuclideanDistance(Wine firstWine, Wine secondWine) {
         double distanceSquared = 0;
-        for (int i = 0; i < a.values.size(); i++) {
-            double difference = a.values.get(i) - b.values.get(i);
+        for (int i = 0; i < firstWine.values.size(); i++) {
+            double difference = firstWine.values.get(i) - secondWine.values.get(i);
             double calculation = (difference * difference) /
                     (trainingRanges.get(i) * trainingRanges.get(i));
             distanceSquared += calculation;
         }
         return Math.sqrt(distanceSquared);
     }
+
+    /**
+     * Method to try and classify the test wine using the k-Nearest Neighbour.
+     * It's not very efficient as it goes though all the training wines every time to find the closest wine(s).
+     * The number of the closest wines is determined by the k value (eg. 1, 3, 5, etc...), and these wines are
+     * used to determine the classification for the provided wine.
+     * @param testWine the provided wine to classify
+     * @param k the k value that effects the performance for the k-Nearest Neighbour algorithm
+     * @return the classification of the provided wine as determined by the training set.
+     */
     private int classify(Wine testWine, int k) {
         double minDistance = Float.MAX_VALUE;
         int closestWineClass = 0;
@@ -120,7 +153,7 @@ public class KNN {
     }
 
     /**
-     * Make predictions on classifying the test wine and reporting on it.
+     * Make predictions on classifying the test wines using k-Nearest Neighbour and reporting the results.
      */
     private void makePredictions() {
         //ArrayList<Integer> predictions;
