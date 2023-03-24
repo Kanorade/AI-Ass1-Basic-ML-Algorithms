@@ -4,15 +4,14 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class KNN {
     private record Wine(ArrayList<Float> values, int classifier){}
-    private List<Wine> trainingWines;
-    private List<Wine> testWines;
+    private final List<Wine> trainingWines;
+    private final List<Wine> testWines;
     private int kValue = 1;
-    private List<Float> trainingRanges;
+    private final List<Float> trainingRanges;
 
     /**
      * Constructor takes the data from the training and test files specified in the arguments and
@@ -20,20 +19,35 @@ public class KNN {
      * @param args Arguments given when the app was executed.
      */
     public KNN(String[] args) {
-        if (args.length == 0 || args.length == 1) {
+        if (args.length == 0 || args.length == 1 || args.length > 3) {
             System.out.println("USAGE ass1-knn.jar <training-filename> <test-filename> <optional k-value>");
-        } else {
-            trainingWines = readFile(args[0]);
-            testWines = readFile(args[1]);
-
-            System.out.println("Number of wine instances:\n" +
-                    "Training wines: " + trainingWines.size() + "\n" +
-                    "Test wines: " + testWines.size() + "\n");
-
-            System.out.println("Finding value ranges for training wine:");
-            trainingRanges = setUpRanges(trainingWines);
-            System.out.println(trainingRanges + "\n");
+            System.exit(0);
+        } else if (args.length == 3) { // checking if the optional k value is the third argument
+            int k;
+            try {
+                k = Integer.parseInt(args[2]);
+                if (k <= 0) {
+                    System.err.println("The k value needs to be a positive non-zero integer.");
+                    System.exit(0);
+                } else {
+                    kValue = k;
+                }
+            } catch (NumberFormatException e) {
+                System.err.println("The argument for the k value is invalid.");
+                System.err.println("Please ensure k value is a positive integer, ideally an odd number.");
+                System.exit(0);
+            }
         }
+        trainingWines = readFile(args[0]);
+        testWines = readFile(args[1]);
+
+        System.out.println("Number of wine instances:\n" +
+                "Training wines: " + trainingWines.size() + "\n" +
+                "Test wines: " + testWines.size() + "\n");
+
+        System.out.println("Finding value ranges for training wine:");
+        trainingRanges = setUpRanges(trainingWines);
+        System.out.println(trainingRanges + "\n");
     }
 
     /**
@@ -129,10 +143,26 @@ public class KNN {
         }
         return Math.sqrt(distanceSquared);
     }
+    public static <T> T mostCommon(List<T> list) {
+        Map<T, Integer> map = new HashMap<>();
 
+        for (T t : list) {
+            Integer val = map.get(t);
+            map.put(t, val == null ? 1 : val + 1);
+        }
+
+        Map.Entry<T, Integer> max = null;
+
+        for (Map.Entry<T, Integer> e : map.entrySet()) {
+            if (max == null || e.getValue() > max.getValue())
+                max = e;
+        }
+
+        return max.getKey();
+    }
     /**
      * Method to try and classify the test wine using the k-Nearest Neighbour.
-     * It's not very efficient as it goes though all the training wines every time to find the closest wine(s).
+     * It's not very efficient as it goes through all the training wines every time to find the closest wine(s).
      * The number of the closest wines is determined by the k value (eg. 1, 3, 5, etc...), and these wines are
      * used to determine the classification for the provided wine.
      * @param testWine the provided wine to classify
@@ -140,16 +170,41 @@ public class KNN {
      * @return the classification of the provided wine as determined by the training set.
      */
     private int classify(Wine testWine, int k) {
+        record Neighbour(int wineClass, double distance) implements Comparable<Neighbour> {
+            @Override
+            public int compareTo(Neighbour o) {
+                double result = distance - o.distance;
+                if (result < 0) {
+                    return -1;
+                } else if (result == 0) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            }
+        }
+        PriorityQueue<Neighbour> neighbours = new PriorityQueue<>();
         double minDistance = Float.MAX_VALUE;
         int closestWineClass = 0;
         for (Wine wine : trainingWines) {
             double distance = findNormalisedEuclideanDistance(testWine, wine);
-            if (minDistance > distance) {
-                minDistance = distance;
-                closestWineClass = wine.classifier;
-            }
+            neighbours.add(new Neighbour(wine.classifier, distance));
+//            if (minDistance > distance) {
+//                minDistance = distance;
+//                closestWineClass = wine.classifier;
+//            }
         }
-        return closestWineClass;
+        List<Integer> nearestNeighbours = new ArrayList<>();
+        for (int i = 0; i < k; i++) {
+            Neighbour n = neighbours.poll();
+            nearestNeighbours.add(n.wineClass);
+            //System.out.println(n.distance);
+            //System.out.println(minDistance);
+        }
+       // System.out.println(nearestNeighbours);
+        int res = mostCommon(nearestNeighbours);
+        //System.out.println(res);
+        return res;
     }
 
     /**
@@ -176,14 +231,15 @@ public class KNN {
                 System.out.println("Fail...");
             }
             wineNumber++;
+            //break;
         }
         System.out.print("\nAccuracy: ");
         float accuracy = (float) successCount/testWines.size();
         System.out.println(accuracy*100f + "%");
     }
-
     public static void main(String[] args) {
         KNN knn = new KNN(args);
         knn.makePredictions();
     }
 }
+
