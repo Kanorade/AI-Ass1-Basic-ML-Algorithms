@@ -2,6 +2,7 @@ package nz.ac.vuw.kanemich2.decTree;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
@@ -12,7 +13,12 @@ public class DecTree {
     private DataSet testSet;
 
     public DecTree(String[] args) {
-
+        if (args.length == 0 || args.length == 1) {
+            System.out.println("USAGE ass1-decTree.jar <training-filename> <test-filename>");
+        } else {
+            trainingSet = readDataFile(args[0]);
+            testSet = readDataFile(args[1]);
+        }
     }
 
     /**
@@ -26,6 +32,7 @@ public class DecTree {
          * category followed by true's and false's for each instance
          */
         System.out.println("Reading data from file " + fileName);
+        DataSet fileData = null;
         try {
             Scanner din = new Scanner(new File(fileName));
 
@@ -47,15 +54,25 @@ public class DecTree {
                 categoryNames.add(i.getCategory());
             }
             int numCategories = categoryNames.size();
-            System.out.println(numCategories + " categories");
-
+            System.out.println(numCategories + " categories\n");
+            System.out.print("Category\t");
+            for (String name : attNames) {
+                System.out.print(name + "\t");
+            }
+            System.out.println("\n----------------------------------------------------------------------------------------------------");
             for (Instance i : allInstances) {
                 System.out.println(i);
             }
-            return new DataSet(numCategories, numAttributes, categoryNames, attNames, allInstances);
-        } catch (IOException e) {
+            fileData =  new DataSet(numCategories, numAttributes, categoryNames, attNames, allInstances);
+        } catch (FileNotFoundException e) {
+            System.err.println("File \"" + fileName + "\" not found.");
+            System.err.println("Make sure file is in same directory as the jar file. " +
+                    "Otherwise you need to include the entire filepath too.");
+            System.exit(0);
+        }catch (IOException e) {
             throw new RuntimeException("Data File caused IO exception");
         }
+        return fileData;
     }
     private List<Instance> readInstances(Scanner din) {
         /* instance = classname and space separated attribute values */
@@ -95,9 +112,9 @@ public class DecTree {
 
     public String toString() {
         StringBuilder ans = new StringBuilder(category);
-        ans.append(" ");
+        ans.append("\t");
         for (Boolean val : values) {
-            ans.append(val ? "true " : "false ");
+            ans.append(val ? "true\t" : "false\t");
         }
         return ans.toString();
     }
