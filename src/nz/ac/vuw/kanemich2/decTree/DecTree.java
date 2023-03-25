@@ -3,7 +3,6 @@ package nz.ac.vuw.kanemich2.decTree;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.*;
 
 public class DecTree {
@@ -16,7 +15,9 @@ public class DecTree {
         if (args.length == 0 || args.length == 1) {
             System.out.println("USAGE ass1-decTree.jar <training-filename> <test-filename>");
         } else {
+            System.out.println("Loading training data...\n");
             trainingSet = readDataFile(args[0]);
+            System.out.println("\nLoading test data...\n");
             testSet = readDataFile(args[1]);
         }
     }
@@ -24,29 +25,27 @@ public class DecTree {
     /**
      * Helper method copied over from the provided helper-code.java file  for
      * the assignment.
+     * Format of names file:
+     *  - names of attributes (the first one should be the class/category)
+     *  - category followed by true's and false's for each instance
+     *
      * @param fileName The name of the file to be read
      */
     private DataSet readDataFile(String fileName) {
-        /* format of names file:
-         * names of attributes (the first one should be the class/category)
-         * category followed by true's and false's for each instance
-         */
-        System.out.println("Reading data from file " + fileName);
         DataSet fileData = null;
         try {
             Scanner din = new Scanner(new File(fileName));
-
             List<String> attNames = new ArrayList<>();
             Scanner s = new Scanner(din.nextLine());
-            // Skip the "Class" attribute.
-            s.next();
-            while (s.hasNext()) {
-                attNames.add(s.next());
-            }
+
+            s.next();       // Skip the "Class" attribute.
+            while (s.hasNext()) {attNames.add(s.next());}
+
             int numAttributes = attNames.size();
-            System.out.println(numAttributes + " attributes");
+            System.out.println("Number of attributes: " + numAttributes);
 
             List<Instance> allInstances = readInstances(din);
+            System.out.println("Number of instances: " + allInstances.size());
             din.close();
 
             Set<String> categoryNames = new HashSet<>();
@@ -54,23 +53,27 @@ public class DecTree {
                 categoryNames.add(i.getCategory());
             }
             int numCategories = categoryNames.size();
-            System.out.println(numCategories + " categories\n");
-            System.out.print("Category\t");
-            for (String name : attNames) {
-                System.out.print(name + "\t");
+            System.out.println("Number of categories: " + numCategories);
+
+            /* Print out table */
+            System.out.print("\nCategory\t");
+            for (String name : attNames) {System.out.print(name + "\t");}
+            System.out.println();
+
+            for (int i = 0; i < numAttributes+2; i++) {
+                System.out.print("--------");
             }
-            System.out.println("\n----------------------------------------------------------------------------------------------------");
+            System.out.println();
             for (Instance i : allInstances) {
                 System.out.println(i);
             }
+            /* Store data into a reusable class */
             fileData =  new DataSet(numCategories, numAttributes, categoryNames, attNames, allInstances);
         } catch (FileNotFoundException e) {
             System.err.println("File \"" + fileName + "\" not found.");
             System.err.println("Make sure file is in same directory as the jar file. " +
                     "Otherwise you need to include the entire filepath too.");
             System.exit(0);
-        }catch (IOException e) {
-            throw new RuntimeException("Data File caused IO exception");
         }
         return fileData;
     }
@@ -81,7 +84,6 @@ public class DecTree {
             Scanner line = new Scanner(din.nextLine());
             instances.add(new Instance(line.next(), line));
         }
-        System.out.println("Read " + instances.size() + " instances");
         return instances;
     }
 
