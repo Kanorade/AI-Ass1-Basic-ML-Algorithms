@@ -122,3 +122,80 @@ public class DecTree {
     }
 
 }
+
+class Node {
+    private boolean isLeaf;
+
+    private String attribute;
+    private Node ifTrueNode;
+    private Node ifFalseNode;
+
+    /* Leaf node Attributes, is null otherwise */
+    private String category;
+    private float probability;
+
+    /**
+     * Constructor for a non-leaf node
+     * @param attribute
+     * @param ifTrueNode
+     * @param ifFalseNode
+     */
+    public Node(String attribute, Node ifTrueNode, Node ifFalseNode) {
+        this.attribute = attribute;
+        this.ifTrueNode = ifTrueNode;
+        this.ifFalseNode = ifFalseNode;
+
+        isLeaf = false;
+    }
+
+    /**
+     * Constructor for leaf node
+     * @param category
+     * @param probability
+     */
+    public Node(String category, float probability) {
+        this.category = category;
+        this.probability = probability;
+        isLeaf = true;
+
+        ifTrueNode = null;
+        ifFalseNode = null;
+    }
+
+    public String getAttribute() {
+        return attribute;
+    }
+
+    public boolean isLeaf() {
+        return isLeaf;
+    }
+
+    public Node getIfTrueNode() {
+        return ifTrueNode;
+    }
+
+    public Node getIfFalseNode() {
+        return ifFalseNode;
+    }
+    public String getCategory() {
+        return category;
+    }
+
+    public float getProbability() {
+        return probability;
+    }
+    public void report(String indent) {
+        if (isLeaf) {
+            if (probability==0){ //Error-checking
+                System.out.printf("%sUnknown%n", indent);
+            }else{
+                System.out.printf("%sClass %s, prob=%.2f%n", indent, category, probability);
+            }
+        } else {
+            System.out.printf("%s%s = True:%n", indent, attribute);
+            ifTrueNode.report(indent+"\t");
+            System.out.printf("%s%s = False:%n", indent, attribute);
+            ifFalseNode.report(indent+"\t");
+        }
+    }
+}
