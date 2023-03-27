@@ -6,10 +6,11 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class DecTree {
-    private record DataSet(int numCategories, int numAttributes, Set<String> categoryNames,
+    private record DataSet(int numCategories, int numAttributes, Map<String, Integer> categoryNames,
                           List<String> attNames, List<Instance> allInstances){}
     private DataSet trainingSet;
     private DataSet testSet;
+    private Node decisionTree;
 
     public DecTree(String[] args) {
         if (args.length == 0 || args.length == 1) {
@@ -17,6 +18,10 @@ public class DecTree {
         } else {
             System.out.println("Loading training data...\n");
             trainingSet = readDataFile(args[0]);
+            System.out.println("\nBuilding Tree...\n");
+            decisionTree = buildTree(trainingSet.allInstances, trainingSet.attNames);
+            decisionTree.report("\t");
+
             System.out.println("\nLoading test data...\n");
             testSet = readDataFile(args[1]);
         }
@@ -48,12 +53,21 @@ public class DecTree {
             System.out.println("Number of instances: " + allInstances.size());
             din.close();
 
-            Set<String> categoryNames = new HashSet<>();
-            for (Instance i : allInstances) {
-                categoryNames.add(i.getCategory());
-            }
+            Map<String, Integer> categoryNames = tally(allInstances);
+//            for (Instance i : allInstances) {
+//                if (categoryNames.containsKey(i.getCategory())) {
+//                    categoryNames.put(i.getCategory(), categoryNames.get(i.getCategory()) + 1);
+//                } else {
+//                    categoryNames.put(i.getCategory(), 1);
+//                }
+//
+//                //categoryNames.add(i.getCategory());
+//            }
             int numCategories = categoryNames.size();
             System.out.println("Number of categories: " + numCategories);
+            for (Map.Entry<String, Integer> cat : categoryNames.entrySet()) {
+                System.out.println(cat.getKey() + ": " + cat.getValue());
+            }
 
             /* Print out table */
             System.out.print("\nCategory\t");
@@ -86,7 +100,103 @@ public class DecTree {
         }
         return instances;
     }
+    private Node buildTree(List<Instance> instances, List<String> attributes) {
+        if (instances.isEmpty()) {
+            // TODO: replace this with buildLeaf method
+            String bestCat = "";
+            int maxFreq = 0;
+            for (Map.Entry<String, Integer> cat : trainingSet.categoryNames.entrySet()) {
+                if (cat.getValue() > maxFreq) {
+                    bestCat = cat.getKey();
+                    maxFreq = cat.getValue();
+                }
+            }
+            float prob = (float)maxFreq / trainingSet.allInstances.size();
+            return new Node(bestCat, prob); // Leaf node
+        } else if (impurity(instances) == 0) {
+            return new Node(instances.get(0).getCategory(), 1f); // Leaf Node
+        } else if (attributes.isEmpty()) {
+            return buildLeaf(instances);
+        } else {
+            // Looking for the attribute with the best weighted impurity
+            float bestImpurity = Float.MAX_VALUE;
+            String bestAtt = "";
+            List<Instance> bestTrueInsts = new ArrayList<>();
+            List<Instance> bestFalseInsts = new ArrayList<>();
+            for (String attribute : attributes) {
+                // Split into two sets of instances
+                List<Instance> trueInstances = new ArrayList<>();
+                List<Instance> falseInstances = new ArrayList<>();
+                int attIndex = trainingSet.attNames.indexOf(attribute);   // Index of the attribute in the training set
+                for (Instance instance : instances) {
+                    if(instance.getAtt(attIndex)) {     // Checking if the attribute is true in this instance
+                        trueInstances.add(instance);
+                    } else {
+                        falseInstances.add(instance);
+                    }
+                }
+                // make weights
+                float trueWeight = (float) trueInstances.size() / instances.size();
+                float falseWeight = (float) falseInstances.size() / instances.size();
+                float averageWeightedImpurity = trueWeight*impurity(trueInstances) +
+                        falseWeight*impurity(falseInstances);
+                // check if best (im)purity
+                if (averageWeightedImpurity < bestImpurity) {
+                    bestImpurity = averageWeightedImpurity;
+                    bestAtt = attribute;
+                    bestTrueInsts = trueInstances;
+                    bestFalseInsts = falseInstances;
+                }
+            }
+            List<String> newAtt = new ArrayList<>(attributes);
+            newAtt.remove(bestAtt);
+            Node ifTrueNode = buildTree(bestTrueInsts, newAtt);
+            Node ifFalseNode = buildTree(bestFalseInsts, newAtt);
+            return  new Node(bestAtt, ifTrueNode, ifFalseNode);
+        }
+    }
+    private Node buildLeaf(List<Instance> instances) {
+        Map<String, Integer> tally = tally(instances);
+        String bestCat = "";
+        int maxFreq = 0;
+        for (Map.Entry<String, Integer> cat : tally.entrySet()) {
+            if (cat.getValue() > maxFreq) {
+                bestCat = cat.getKey();
+                maxFreq = cat.getValue();
+            }
+        }
+        float probability = (float)maxFreq / trainingSet.allInstances.size();
+        return new Node(bestCat, probability);
+    }
+    /**
+     * Convienience method for counting the number of each categoies for each method
+     * @param instances
+     * @return
+     */
+    private Map<String, Integer> tally(List<Instance> instances) {
+        HashMap<String, Integer> tally = new HashMap<>();
+        for (Instance i : instances) {
+            if (tally.containsKey(i.getCategory())) {
+                tally.put(i.getCategory(), tally.get(i.getCategory()) +1);
+            } else {
+                tally.put(i.getCategory(), 1);
+            }
+        }
+        return tally;
+    }
+    private float impurity(List<Instance> instances) {
+        if (instances.isEmpty()) return 0; // <- shouldn't happen
+        Map<String, Integer> tally = tally(instances);
 
+        if (tally.size() ==1) {   // assuming there's only 2 categories his assignment
+            return 0;
+        }
+        float impurity = 1;
+        for (int catCount : tally.values()) {
+            impurity = impurity * ((float) catCount / instances.size());
+        }
+        return impurity;
+    }
     public static void main(String[] args) {
         DecTree dt = new DecTree(args);
     }
