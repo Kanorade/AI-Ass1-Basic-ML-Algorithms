@@ -1,6 +1,8 @@
 package nz.ac.vuw.kanemich2.decTree;
 
 
+import nz.ac.vuw.kanemich2.knn.KNN;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -70,8 +72,8 @@ public class DecTree {
             }
 
             /* Print out table */
-            System.out.print("\nCategory\t");
-            for (String name : attNames) {System.out.print(name + "\t");}
+            System.out.print("\nAttributes: ");
+            for (String name : attNames) {System.out.print(name + " ");}
             System.out.println();
 
             for (int i = 0; i < numAttributes+2; i++) {
@@ -197,8 +199,47 @@ public class DecTree {
         }
         return impurity;
     }
+    private String classify(Instance testInstance, Node decider) {
+        if (decider.isLeaf()) {
+            return decider.getCategory();
+        } else {
+            int attIndex = testSet.attNames.indexOf(decider.getAttribute());
+            if (testInstance.getAtt(attIndex)) {    // If given attribute of this instance is true
+                return classify(testInstance, decider.getIfTrueNode());
+            } else {
+                return classify(testInstance, decider.getIfFalseNode());
+            }
+        }
+    }
+    private void makePredictions() {
+        System.out.println(
+                "\nMaking predictions of each test instance using a decision tree:");
+        int instanceNumber = 1;
+        int successCount = 0;
+        for (Instance test : testSet.allInstances) {
+            System.out.print("Instance " + instanceNumber + ": ");
+
+            System.out.print("Prediction = ");
+            String classPrediction = classify(test, decisionTree);
+            System.out.print(classPrediction + ", ");
+
+            System.out.print("Actual = " + test.getCategory() + "\t");
+            if (classPrediction.equals(test.getCategory())) {
+                System.out.println("Success!");
+                successCount++;
+            } else {
+                System.out.println("Fail...");
+            }
+            instanceNumber++;
+        }
+        System.out.print("\nAccuracy: ");
+        float accuracy = (float) successCount/testSet.allInstances.size();
+        System.out.println(accuracy*100f + "%");
+    }
+
     public static void main(String[] args) {
         DecTree dt = new DecTree(args);
+        dt.makePredictions();
     }
 }
  class Instance {
@@ -234,11 +275,11 @@ public class DecTree {
 }
 
 class Node {
-    private boolean isLeaf;
+    private final boolean isLeaf;
 
     private String attribute;
-    private Node ifTrueNode;
-    private Node ifFalseNode;
+    private final Node ifTrueNode;
+    private final Node ifFalseNode;
 
     /* Leaf node Attributes, is null otherwise */
     private String category;
@@ -290,10 +331,6 @@ class Node {
     public String getCategory() {
         return category;
     }
-
-    public float getProbability() {
-        return probability;
-    }
     public void report(String indent) {
         if (isLeaf) {
             if (probability==0){ //Error-checking
@@ -303,8 +340,10 @@ class Node {
             }
         } else {
             System.out.printf("%s%s = True:%n", indent, attribute);
+            assert ifTrueNode != null;
             ifTrueNode.report(indent+"\t");
             System.out.printf("%s%s = False:%n", indent, attribute);
+            assert ifFalseNode != null;
             ifFalseNode.report(indent+"\t");
         }
     }
