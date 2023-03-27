@@ -1,23 +1,32 @@
 package nz.ac.vuw.kanemich2.perceptron;
 
-import nz.ac.vuw.kanemich2.knn.KNN;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Perceptron {
-    private record Instance(ArrayList<Float> inputs, String classifier){}
+    private record Instance(ArrayList<Double> inputs, String classifier, int d){}
     private List<Instance> instances;
+    private final static int MAX_ITERATIONS = 100;
+    private Map<String, Integer> classifiers;
+
+
     public Perceptron(String[] args) {
         if (args.length != 1) {
             System.out.println("USAGE ass1-perceptron.jar <data-filename>");
+            System.exit(0);
         } else {
+            // hard coding the classes 'g' and 'b' into 1 and 0.
+            // This will probably not work for more general files.
+            classifiers = new HashMap<>();
+            classifiers.put("g", 1);
+            classifiers.put("b", 0);
             instances = readFile(args[0]);
-
             System.out.println("Number of instances loaded: " + instances.size());
             System.out.println("Number of inputs per instance: " + instances.get(0).inputs.size());
         }
@@ -36,12 +45,12 @@ public class Perceptron {
                     isFirstLine = false;       // Ignore the first line as it's all the labels
                 } else {
                     String[] tokens = line.split(" ");
-                    ArrayList<Float> inputs = new ArrayList<>();
+                    ArrayList<Double> inputs = new ArrayList<>();
                     for (int i = 0; i < tokens.length - 1; i++) {
-                        inputs.add(Float.parseFloat(tokens[i]));
+                        inputs.add(Double.parseDouble(tokens[i]));
                     }
                     String instanceClass = tokens[tokens.length - 1];
-                    fileData.add(new Instance(inputs, instanceClass));
+                    fileData.add(new Instance(inputs, instanceClass, classifiers.get(instanceClass)));
                 }
             }
             // close resources
@@ -60,7 +69,63 @@ public class Perceptron {
         return fileData;
     }
 
+    private void buildPerceptron() {
+        // Initialise weights
+        List<Double> weights = new ArrayList<>();
+        for (int i = 0; i < instances.get(0).inputs.size() + 1; i++) {  //one extra for the bias
+            weights.add(0.0);
+        }
+
+        for (int z = 0; z < MAX_ITERATIONS; z++) {
+            int successCount = 0;
+            for (Instance inst: instances) {
+                int i = 0;
+                double sum = weights.get(i);
+                i++;
+                for (double input : inst.inputs) {
+                    sum += weights.get(i)*input;
+                    i++;
+                }
+                int y;
+                if(sum > 0) {
+                    y = 1;
+                } else {
+                    y = 0;
+                }
+
+                int d = inst.d;
+                double adjust = d - y;
+                if (y == d) {
+                    successCount++;    // No learning taking place
+                } else {
+                    // adjust weights
+                    // reset weight index
+                    i = 0;
+
+                    double replace = weights.get(i) + adjust;    // because x0 = 1
+                    weights.set(i,replace);
+                    i++;
+                    for (double input : inst.inputs) {
+                        replace = weights.get(i) + (adjust*input);
+                        weights.set(i, replace);
+                        i++;
+                    }
+                }
+                //System.out.println("sum = " + sum + ", y = " + y + ", d = " + d + ", adjust = " + adjust);
+            }
+            System.out.println("\nIteration: " + (z+1));
+            System.out.println("Success rate: " + successCount + " out of " + instances.size() + " instances");
+            System.out.println("Accuracy: " + (double)successCount/instances.size()*100 + "%");
+            if (successCount == instances.size()) {
+                break;
+            }
+
+        }
+        System.out.println("\nFinal weights:\n" + weights);
+    }
     public static void main(String[] args) {
         Perceptron p = new Perceptron(args);
+        p.buildPerceptron();
+
     }
 }
