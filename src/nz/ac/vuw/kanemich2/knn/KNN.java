@@ -23,14 +23,13 @@ public class KNN {
             System.out.println("USAGE ass1-knn.jar <training-filename> <test-filename> <optional k-value>");
             System.exit(0);
         } else if (args.length == 3) { // checking if the optional k value is the third argument
-            int k;
             try {
-                k = Integer.parseInt(args[2]);
+                int k = Integer.parseInt(args[2]);
                 if (k <= 0) {
                     System.err.println("The k value needs to be a positive non-zero integer.");
                     System.exit(0);
                 } else {
-                    kValue = k;
+                    kValue = k; // Set k value
                 }
             } catch (NumberFormatException e) {
                 System.err.println("The argument for the k value is invalid.");
@@ -45,10 +44,9 @@ public class KNN {
                 "Training wines: " + trainingWines.size() + "\n" +
                 "Test wines: " + testWines.size() + "\n");
 
-            System.out.println("Finding value ranges wines in the training set:");
-            trainingRanges = setUpRanges(trainingWines);
-            System.out.println(trainingRanges + "\n");
-        }
+        System.out.println("Finding value ranges wines in the training set:");
+        trainingRanges = setUpRanges(trainingWines);
+        System.out.println(trainingRanges + "\n");
     }
 
     /**
@@ -144,21 +142,26 @@ public class KNN {
         }
         return Math.sqrt(distanceSquared);
     }
-    public static <T> T mostCommon(List<T> list) {
-        Map<T, Integer> map = new HashMap<>();
 
+    /**
+     * Convenience method to find the most common item in a list. Most likely a list of classifiers
+     * @param list The List of classifications
+     * @return The most common classifier
+     * @param <T> Either a string or an int preferred
+     */
+    private static <T> T mostCommon(List<T> list) {
+        Map<T, Integer> tally = new HashMap<>();
         for (T t : list) {
-            Integer val = map.get(t);
-            map.put(t, val == null ? 1 : val + 1);
+            Integer val = tally.get(t);
+            tally.put(t, val == null ? 1 : val + 1);
         }
-
         Map.Entry<T, Integer> max = null;
 
-        for (Map.Entry<T, Integer> e : map.entrySet()) {
+        for (Map.Entry<T, Integer> e : tally.entrySet()) {
             if (max == null || e.getValue() > max.getValue())
                 max = e;
         }
-
+        assert max != null;
         return max.getKey();
     }
     /**
@@ -171,41 +174,33 @@ public class KNN {
      * @return the classification of the provided wine as determined by the training set.
      */
     private int classify(Wine testWine, int k) {
+        // Creating an internal Neighbour class to keep track of distances
+        // Implements Comparable as it will be in a priority queue.
         record Neighbour(int wineClass, double distance) implements Comparable<Neighbour> {
             @Override
             public int compareTo(Neighbour o) {
                 double result = distance - o.distance;
-                if (result < 0) {
-                    return -1;
-                } else if (result == 0) {
-                    return 0;
-                } else {
-                    return 1;
-                }
+                if (result < 0) return -1;  // just needs to be negative
+                else if (result == 0) return 0;
+                else return 1;  // just needs to be positive
             }
         }
+        // Organise wine training instances in the order of euclidean distances from given test wine
         PriorityQueue<Neighbour> neighbours = new PriorityQueue<>();
-        double minDistance = Float.MAX_VALUE;
-        int closestWineClass = 0;
         for (Wine wine : trainingWines) {
             double distance = findNormalisedEuclideanDistance(testWine, wine);
             neighbours.add(new Neighbour(wine.classifier, distance));
-//            if (minDistance > distance) {
-//                minDistance = distance;
-//                closestWineClass = wine.classifier;
-//            }
         }
+        // Find the k nearest neighbours
+        // e.g. if k = 1 then find the single closest neighbour
         List<Integer> nearestNeighbours = new ArrayList<>();
         for (int i = 0; i < k; i++) {
-            Neighbour n = neighbours.poll();
+            Neighbour n = neighbours.poll();    // The neighbour with the shortest distance in the queue
+            assert n != null;   // Shouldn't happen
             nearestNeighbours.add(n.wineClass);
-            //System.out.println(n.distance);
-            //System.out.println(minDistance);
         }
-       // System.out.println(nearestNeighbours);
-        int res = mostCommon(nearestNeighbours);
-        //System.out.println(res);
-        return res;
+        // Out of the k nearest neighbours find the most common classifier
+        return mostCommon(nearestNeighbours);
     }
 
     /**
