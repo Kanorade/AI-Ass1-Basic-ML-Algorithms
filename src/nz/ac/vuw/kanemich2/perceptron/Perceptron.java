@@ -14,6 +14,7 @@ public class Perceptron {
     private List<Instance> instances;
     private final static int MAX_ITERATIONS = 100;
     private Map<String, Integer> classifiers;
+    private final static double LEARNING_RATE = 0.1;
 
 
     public Perceptron(String[] args) {
@@ -21,8 +22,9 @@ public class Perceptron {
             System.out.println("USAGE ass1-perceptron.jar <data-filename>");
             System.exit(0);
         } else {
-            // hard coding the classes 'g' and 'b' into 1 and 0.
+            // Hard coding the classes 'g' and 'b' into 1 and 0.
             // This will probably not work for more general files.
+            // Should be okay for the scope of the assignment.
             classifiers = new HashMap<>();
             classifiers.put("g", 1);
             classifiers.put("b", 0);
@@ -72,46 +74,46 @@ public class Perceptron {
     private void buildPerceptron() {
         // Initialise weights
         List<Double> weights = new ArrayList<>();
-        for (int i = 0; i < instances.get(0).inputs.size() + 1; i++) {  //one extra for the bias
+        for (int i = 0; i < instances.get(0).inputs.size() + 1; i++) {  //one extra weight for the bias
             weights.add(0.0);
         }
 
         for (int z = 0; z < MAX_ITERATIONS; z++) {
             int successCount = 0;
             for (Instance inst: instances) {
-                int i = 0;
-                double sum = weights.get(i);
-                i++;
-                for (double input : inst.inputs) {
-                    sum += weights.get(i)*input;
-                    i++;
-                }
-                int y;
-                if(sum > 0) {
-                    y = 1;
-                } else {
-                    y = 0;
-                }
+                int wi = 0;  // Setting weight index
+                double sum = weights.get(wi);    // Starting sum with weight w0
 
-                int d = inst.d;
-                double adjust = d - y;
+                wi++;    // i = 1, referring to weight w1
+                for (double input : inst.inputs) {
+                    sum += weights.get(wi)*input;
+                    wi++;
+                }
+                int y;              // Predicted value
+                int d = inst.d;     // Expected value
+                // Should probably give more meaningful variable names,
+                // but it was easier to visualise the math this way
+
+                if(sum > 0) y = 1;
+                else y = 0;
+
                 if (y == d) {
                     successCount++;    // No learning taking place
                 } else {
                     // adjust weights
-                    // reset weight index
-                    i = 0;
+                    // resetting weight index
+                    wi = 0;
 
-                    double replace = weights.get(i) + adjust;    // because x0 = 1
-                    weights.set(i,replace);
-                    i++;
+                    double adjust = LEARNING_RATE * (d - y);
+                    double replace = weights.get(wi) + adjust;    // because x0 = 1
+                    weights.set(wi,replace);
+                    wi++;
                     for (double input : inst.inputs) {
-                        replace = weights.get(i) + (adjust*input);
-                        weights.set(i, replace);
-                        i++;
+                        replace = weights.get(wi) + (adjust*input);
+                        weights.set(wi, replace);
+                        wi++;
                     }
                 }
-                //System.out.println("sum = " + sum + ", y = " + y + ", d = " + d + ", adjust = " + adjust);
             }
             System.out.println("\nIteration: " + (z+1));
             System.out.println("Success rate: " + successCount + " out of " + instances.size() + " instances");
