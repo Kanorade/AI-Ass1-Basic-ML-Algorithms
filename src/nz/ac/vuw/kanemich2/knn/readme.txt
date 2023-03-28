@@ -9,7 +9,7 @@ For example,
 
 The program assumes the first line has the feature labels, and the remaining lines
 are space separated values where the last value on each line is an integer
-representing the wine's class. If a file doesn't meet these assumptions, th program
+representing the wine's class. If a file doesn't meet these assumptions, the program
 may not function as intended or throw and error.
 
 The program will perform k-Nearest Neighbour with the training and test files and
