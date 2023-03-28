@@ -30,7 +30,7 @@ public class KNN {
                     "Training wines: " + trainingWines.size() + "\n" +
                     "Test wines: " + testWines.size() + "\n");
 
-            System.out.println("Finding value ranges for training wine:");
+            System.out.println("Finding value ranges wines in the training set:");
             trainingRanges = setUpRanges(trainingWines);
             System.out.println(trainingRanges + "\n");
         }
@@ -158,13 +158,13 @@ public class KNN {
     private void makePredictions() {
         //ArrayList<Integer> predictions;
         System.out.println(
-                "Making predictions of test wines using k-Nearest Neighbour where k = " + kValue + ":");
+                "Class predictions of test wines using k-Nearest Neighbour, where k = " + kValue + ":\n");
         int wineNumber = 1;
         int successCount = 0;
         for (Wine testWine : testWines) {
             System.out.print("Wine " + wineNumber + ": ");
 
-            System.out.print("Class Prediction = ");
+            System.out.print("Prediction = ");
             int classPrediction = classify(testWine, kValue);
             System.out.print(classPrediction + ", ");
 
@@ -177,6 +177,7 @@ public class KNN {
             }
             wineNumber++;
         }
+        System.out.println("\nSuccessfully predicted " + successCount + " out of " + testWines.size() + " wines");
         System.out.print("\nAccuracy: ");
         float accuracy = (float) successCount/testWines.size();
         System.out.println(accuracy*100f + "%");
