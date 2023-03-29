@@ -57,7 +57,8 @@ public class DecTree {
             int numCategories = categoryNames.size();
             System.out.println("Number of categories: " + numCategories);
             for (Map.Entry<String, Integer> cat : categoryNames.entrySet()) {
-                System.out.println(cat.getKey() + ": " + cat.getValue());
+                System.out.println(cat.getKey() + ": " + cat.getValue() +
+                        " (" + ((float)cat.getValue()/allInstances.size()*100) + "%)");
             }
 
             /* Print out table */
@@ -128,8 +129,8 @@ public class DecTree {
             // Looking for the attribute with the best weighted impurity
             float bestImpurity = Float.MAX_VALUE;
             String bestAtt = "";
-            List<Instance> bestTrueInsts = new ArrayList<>();
-            List<Instance> bestFalseInsts = new ArrayList<>();
+            List<Instance> bestTrueInstances = new ArrayList<>();
+            List<Instance> bestFalseInstances = new ArrayList<>();
             for (String attribute : attributes) {
                 // Split into two sets of instances
                 List<Instance> trueInstances = new ArrayList<>();
@@ -151,14 +152,14 @@ public class DecTree {
                 if (averageWeightedImpurity < bestImpurity) {
                     bestImpurity = averageWeightedImpurity;
                     bestAtt = attribute;
-                    bestTrueInsts = trueInstances;
-                    bestFalseInsts = falseInstances;
+                    bestTrueInstances = trueInstances;
+                    bestFalseInstances = falseInstances;
                 }
             }
             List<String> newAtt = new ArrayList<>(attributes);
             newAtt.remove(bestAtt);
-            Node ifTrueNode = buildTree(bestTrueInsts, newAtt);
-            Node ifFalseNode = buildTree(bestFalseInsts, newAtt);
+            Node ifTrueNode = buildTree(bestTrueInstances, newAtt);
+            Node ifFalseNode = buildTree(bestFalseInstances, newAtt);
             return  new Node(bestAtt, ifTrueNode, ifFalseNode);
         }
     }
