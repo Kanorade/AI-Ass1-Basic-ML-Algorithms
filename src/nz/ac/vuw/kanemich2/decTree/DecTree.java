@@ -1,8 +1,5 @@
 package nz.ac.vuw.kanemich2.decTree;
 
-
-import nz.ac.vuw.kanemich2.knn.KNN;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -56,15 +53,7 @@ public class DecTree {
             din.close();
 
             Map<String, Integer> categoryNames = tally(allInstances);
-//            for (Instance i : allInstances) {
-//                if (categoryNames.containsKey(i.getCategory())) {
-//                    categoryNames.put(i.getCategory(), categoryNames.get(i.getCategory()) + 1);
-//                } else {
-//                    categoryNames.put(i.getCategory(), 1);
-//                }
-//
-//                //categoryNames.add(i.getCategory());
-//            }
+
             int numCategories = categoryNames.size();
             System.out.println("Number of categories: " + numCategories);
             for (Map.Entry<String, Integer> cat : categoryNames.entrySet()) {
@@ -171,9 +160,10 @@ public class DecTree {
         return new Node(bestCat, probability);
     }
     /**
-     * Convienience method for counting the number of each categoies for each method
-     * @param instances
-     * @return
+     * Convenience method for counting the number of each category for the list of instances.
+     *
+     * @param instances The list of instances that each contain the categories
+     * @return A HashMap that contains the possible categories as key and the category count as value
      */
     private Map<String, Integer> tally(List<Instance> instances) {
         HashMap<String, Integer> tally = new HashMap<>();
@@ -287,9 +277,10 @@ class Node {
 
     /**
      * Constructor for a non-leaf node
-     * @param attribute
-     * @param ifTrueNode
-     * @param ifFalseNode
+     *
+     * @param attribute The attribute to check if true of false
+     * @param ifTrueNode The tree to traverse if the attribute is true
+     * @param ifFalseNode The tree to traverse if the attribute is false
      */
     public Node(String attribute, Node ifTrueNode, Node ifFalseNode) {
         this.attribute = attribute;
@@ -300,9 +291,10 @@ class Node {
     }
 
     /**
-     * Constructor for leaf node
-     * @param category
-     * @param probability
+     * Constructor for a leaf node
+     *
+     * @param category The resulting category for the classifier
+     * @param probability The probability of this category being true according to the training data
      */
     public Node(String category, float probability) {
         this.category = category;
