@@ -82,18 +82,34 @@ public class DecTree {
         }
         return fileData;
     }
+
+    /**
+     * Method to read the instances (all the lines after the first in a file) and store its
+     * categories and values
+     * @param din The provided scanner after reading the first line
+     * @return A list of instances
+     */
     private List<Instance> readInstances(Scanner din) {
         /* instance = classname and space separated attribute values */
         List<Instance> instances = new ArrayList<>();
         while (din.hasNext()) {
             Scanner line = new Scanner(din.nextLine());
+            // the first token in the line is the instance's category
             instances.add(new Instance(line.next(), line));
         }
         return instances;
     }
+
+    /**
+     * Method to build the decision tree from the training data
+     * @param instances The set of training instances that have been provided to the node being constructed
+     * @param attributes The list of attributes that were not used on the path from the root to this node
+     * @return The recursive node for this particular part of the tree
+     */
     private Node buildTree(List<Instance> instances, List<String> attributes) {
         if (instances.isEmpty()) {
-            // TODO: replace this with buildLeaf method
+            // Can't use typical leaf building method as the list of instances is empty.
+            // Use the common category in the training set instead.
             String bestCat = "";
             int maxFreq = 0;
             for (Map.Entry<String, Integer> cat : trainingSet.categoryNames.entrySet()) {
@@ -146,6 +162,12 @@ public class DecTree {
             return  new Node(bestAtt, ifTrueNode, ifFalseNode);
         }
     }
+
+    /**
+     * Convenience method to build a leaf node when building the tree.
+     * @param instances The list of instances associated with this node.
+     * @return The leaf node with the predicted category and its probability
+     */
     private Node buildLeaf(List<Instance> instances) {
         Map<String, Integer> tally = tally(instances);
         String bestCat = "";
@@ -176,6 +198,13 @@ public class DecTree {
         }
         return tally;
     }
+
+    /**
+     * Method to find the impurity for the list of instances. The lower the impurity the more pure
+     * it is. Where an impurity of zero means the whole list consists of the same category.
+     * @param instances The list of instance to check for impurity
+     * @return The impurity value
+     */
     private float impurity(List<Instance> instances) {
         if (instances.isEmpty()) return 0; // <- shouldn't happen
         Map<String, Integer> tally = tally(instances);
@@ -189,6 +218,15 @@ public class DecTree {
         }
         return impurity;
     }
+
+    /**
+     * Recursive method to classify an instance by traversing the decision tree.
+     * It does not use the category in the test instance. That's only used to confirm if the
+     * prediction is correct later.
+     * @param testInstance The instance to test
+     * @param decider The part of the tree to be traversed
+     * @return The predicted category
+     */
     private String classify(Instance testInstance, Node decider) {
         if (decider.isLeaf()) {
             return decider.getCategory();
@@ -201,9 +239,15 @@ public class DecTree {
             }
         }
     }
+
+    /**
+     * Method to make predictions using the data provided in the test file, and using the
+     * decision tree constructed from the training data. Then it reports the results.
+     */
     private void makePredictions() {
         System.out.println(
-                "\nMaking predictions of each test instance using a decision tree:");
+                "\nMaking predictions of each test instance using a decision tree:"
+        );
         int instanceNumber = 1;
         int successCount = 0;
         for (Instance test : testSet.allInstances) {
@@ -232,27 +276,50 @@ public class DecTree {
         dt.makePredictions();
     }
 }
+
+/**
+ * Class used to store the instance data in a meaningful way
+ */
  class Instance {
 
     private final String category;
     private final List<Boolean> values;
 
+    /**
+     * Instance constructor taking the instance's category and the rest of the values
+     * @param cat The instance's category
+     * @param s The scanner of the remaining line containing true and false boolean values
+     */
     public Instance(String cat, Scanner s) {
         category = cat;
+        // Store the list of values
         values = new ArrayList<>();
         while (s.hasNextBoolean()) {
             values.add(s.nextBoolean());
         }
     }
 
+    /**
+     * Method to get the boolean value for the given attribute index
+     * @param index The index of the specific attribute needed
+     * @return the boolean assigned to the given attribute
+     */
     public boolean getAtt(int index) {
         return values.get(index);
     }
 
+    /**
+     * Method to get this instance's category
+     * @return This instance's category
+     */
     public String getCategory() {
         return category;
     }
 
+    /**
+     * Method to display this instance as a string
+     * @return The String representation of this instance
+     */
     public String toString() {
         StringBuilder ans = new StringBuilder(category);
         ans.append("\t");
@@ -264,6 +331,10 @@ public class DecTree {
 
 }
 
+/**
+ * Node class to build the tree. The same class is used for the branches and the leaves of the
+ * tree. the isLeaf() method can be used to determine if it's a leaf.
+ */
 class Node {
     private final boolean isLeaf;
 
@@ -273,7 +344,7 @@ class Node {
 
     /* Leaf node Attributes, is null otherwise */
     private String category;
-    private float probability;
+    private float probability; // only time this value is called is when printing the report
 
     /**
      * Constructor for a non-leaf node
@@ -305,24 +376,55 @@ class Node {
         ifFalseNode = null;
     }
 
+    /**
+     * Getter method for the attribute. Returns null if doesn't exist.
+     * i.e. is a leaf node
+     * @return The node's attribute
+     */
     public String getAttribute() {
         return attribute;
     }
 
+    /**
+     * Method to confirm if this node is a leaf node.
+     * @return boolean confirming if this node is leaf or not
+     */
     public boolean isLeaf() {
         return isLeaf;
     }
 
+    /**
+     * Getter method for the Node if the attribute is true. Returns null if doesn't exist.
+     * i.e. is a leaf node
+     *
+     * @return The ifTrueNode
+     */
     public Node getIfTrueNode() {
         return ifTrueNode;
     }
-
+    /**
+     * Getter method for the Node if the attribute is false. Returns null if doesn't exist.
+     * i.e. is a leaf node
+     *
+     * @return The ifFalseNode
+     */
     public Node getIfFalseNode() {
         return ifFalseNode;
     }
+
+    /**
+     * Getter method for the category. Returns null if doesn't exist.
+     * i.e. is a branch node
+     * @return This node's category
+     */
     public String getCategory() {
         return category;
     }
+
+    /**
+     * Method used in recursive algorithm to print out the tree
+     * @param indent The string representing the indentation
+     */
     public void report(String indent) {
         if (isLeaf) {
             if (probability==0){ //Error-checking
