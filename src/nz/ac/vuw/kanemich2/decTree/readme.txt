@@ -5,7 +5,7 @@ training and test files. Then under the directory type the command line:
 
 For example,
 
-    java -jar ass1-knn.jar hepatitis-training hepatitis-test
+    java -jar ass1-decTree.jar hepatitis-training hepatitis-test
 
 The program assumes the first line has the attribute labels. The remaining lines
 are space separated values. Where the first value on each line is a String
