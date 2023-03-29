@@ -2,3 +2,5 @@ Things to ask at help desk:
 
  - Is it fine to just copy and paste bits of code from helper-code.java?
  - Alternatively, can I edit helper-code.java to suit my needs and submit that too?
+ - will the code be tested with other files. say, will perceptron be tested with class
+ states other than 'g' and 'b'
