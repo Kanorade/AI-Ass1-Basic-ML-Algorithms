@@ -1,0 +1,104 @@
+Number of wine instances:
+Training wines: 89
+Test wines: 89
+
+Finding value ranges wines in the training set:
+[3.38, 4.88, 1.86, 16.4, 84.0, 2.7800002, 3.24, 0.49, 3.1599998, 11.72, 0.93999994, 2.6200001, 1237.0]
+
+Class predictions of test wines using k-Nearest Neighbour, where k = 1:
+
+Wine 1: Prediction = 3, Actual = 3	Success!
+Wine 2: Prediction = 3, Actual = 3	Success!
+Wine 3: Prediction = 3, Actual = 3	Success!
+Wine 4: Prediction = 1, Actual = 1	Success!
+Wine 5: Prediction = 1, Actual = 1	Success!
+Wine 6: Prediction = 1, Actual = 1	Success!
+Wine 7: Prediction = 1, Actual = 2	Fail...
+Wine 8: Prediction = 2, Actual = 2	Success!
+Wine 9: Prediction = 1, Actual = 1	Success!
+Wine 10: Prediction = 2, Actual = 2	Success!
+Wine 11: Prediction = 2, Actual = 2	Success!
+Wine 12: Prediction = 3, Actual = 2	Fail...
+Wine 13: Prediction = 3, Actual = 3	Success!
+Wine 14: Prediction = 3, Actual = 3	Success!
+Wine 15: Prediction = 1, Actual = 1	Success!
+Wine 16: Prediction = 2, Actual = 2	Success!
+Wine 17: Prediction = 3, Actual = 3	Success!
+Wine 18: Prediction = 3, Actual = 3	Success!
+Wine 19: Prediction = 1, Actual = 1	Success!
+Wine 20: Prediction = 1, Actual = 1	Success!
+Wine 21: Prediction = 3, Actual = 3	Success!
+Wine 22: Prediction = 2, Actual = 2	Success!
+Wine 23: Prediction = 2, Actual = 2	Success!
+Wine 24: Prediction = 3, Actual = 3	Success!
+Wine 25: Prediction = 2, Actual = 2	Success!
+Wine 26: Prediction = 3, Actual = 2	Fail...
+Wine 27: Prediction = 2, Actual = 2	Success!
+Wine 28: Prediction = 3, Actual = 3	Success!
+Wine 29: Prediction = 2, Actual = 2	Success!
+Wine 30: Prediction = 1, Actual = 1	Success!
+Wine 31: Prediction = 2, Actual = 2	Success!
+Wine 32: Prediction = 1, Actual = 1	Success!
+Wine 33: Prediction = 2, Actual = 2	Success!
+Wine 34: Prediction = 1, Actual = 1	Success!
+Wine 35: Prediction = 2, Actual = 2	Success!
+Wine 36: Prediction = 2, Actual = 2	Success!
+Wine 37: Prediction = 2, Actual = 2	Success!
+Wine 38: Prediction = 2, Actual = 2	Success!
+Wine 39: Prediction = 2, Actual = 2	Success!
+Wine 40: Prediction = 1, Actual = 1	Success!
+Wine 41: Prediction = 2, Actual = 2	Success!
+Wine 42: Prediction = 2, Actual = 2	Success!
+Wine 43: Prediction = 3, Actual = 3	Success!
+Wine 44: Prediction = 1, Actual = 1	Success!
+Wine 45: Prediction = 2, Actual = 2	Success!
+Wine 46: Prediction = 1, Actual = 1	Success!
+Wine 47: Prediction = 3, Actual = 3	Success!
+Wine 48: Prediction = 2, Actual = 2	Success!
+Wine 49: Prediction = 2, Actual = 2	Success!
+Wine 50: Prediction = 1, Actual = 1	Success!
+Wine 51: Prediction = 3, Actual = 3	Success!
+Wine 52: Prediction = 1, Actual = 1	Success!
+Wine 53: Prediction = 1, Actual = 1	Success!
+Wine 54: Prediction = 3, Actual = 3	Success!
+Wine 55: Prediction = 3, Actual = 3	Success!
+Wine 56: Prediction = 1, Actual = 1	Success!
+Wine 57: Prediction = 1, Actual = 1	Success!
+Wine 58: Prediction = 3, Actual = 3	Success!
+Wine 59: Prediction = 1, Actual = 1	Success!
+Wine 60: Prediction = 3, Actual = 3	Success!
+Wine 61: Prediction = 3, Actual = 3	Success!
+Wine 62: Prediction = 1, Actual = 2	Fail...
+Wine 63: Prediction = 2, Actual = 2	Success!
+Wine 64: Prediction = 3, Actual = 3	Success!
+Wine 65: Prediction = 2, Actual = 2	Success!
+Wine 66: Prediction = 3, Actual = 3	Success!
+Wine 67: Prediction = 3, Actual = 3	Success!
+Wine 68: Prediction = 1, Actual = 1	Success!
+Wine 69: Prediction = 1, Actual = 1	Success!
+Wine 70: Prediction = 2, Actual = 2	Success!
+Wine 71: Prediction = 1, Actual = 2	Fail...
+Wine 72: Prediction = 3, Actual = 3	Success!
+Wine 73: Prediction = 2, Actual = 2	Success!
+Wine 74: Prediction = 2, Actual = 2	Success!
+Wine 75: Prediction = 1, Actual = 1	Success!
+Wine 76: Prediction = 1, Actual = 1	Success!
+Wine 77: Prediction = 1, Actual = 1	Success!
+Wine 78: Prediction = 3, Actual = 3	Success!
+Wine 79: Prediction = 1, Actual = 1	Success!
+Wine 80: Prediction = 1, Actual = 1	Success!
+Wine 81: Prediction = 2, Actual = 2	Success!
+Wine 82: Prediction = 2, Actual = 2	Success!
+Wine 83: Prediction = 3, Actual = 3	Success!
+Wine 84: Prediction = 1, Actual = 1	Success!
+Wine 85: Prediction = 2, Actual = 2	Success!
+Wine 86: Prediction = 1, Actual = 1	Success!
+Wine 87: Prediction = 1, Actual = 1	Success!
+Wine 88: Prediction = 2, Actual = 2	Success!
+Wine 89: Prediction = 1, Actual = 1	Success!
+
+Successfully predicted 84 out of 89 wines
+
+Accuracy: 94.38203%
+
+Process finished with exit code 0

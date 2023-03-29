@@ -1,0 +1,254 @@
+Loading training data...
+
+Number of attributes: 16
+Number of instances: 112
+Number of categories: 2
+die: 21 (18.75%)
+live: 91 (81.25%)
+
+Attributes: AGE FEMALE STEROID ANTIVIRALS FATIGUE MALAISE ANOREXIA BIGLIVER FIRMLIVER SPLEENPALPABLE SPIDERS ASCITES VARICES BILIRUBIN SGOT HISTOLOGY 
+------------------------------------------------------------------------------------------------------------------------------------------------
+live    false   false   false   true    false   false   false   true    false   true    true    true    true    true    true    false
+die     false   false   false   true    false   false   true    true    true    true    true    false   true    false   false   true
+live    true    false   false   true    false   false   true    false   false   true    false   true    true    false   false   true
+live    false   false   false   false   true    true    true    false   false   true    true    true    true    true    false   false
+live    false   false   false   true    false   false   true    true    true    true    true    true    true    false   false   false
+live    false   false   false   true    false   false   true    false   false   true    false   true    true    true    false   true
+live    false   false   false   true    false   false   false   false   false   true    true    true    true    false   false   true
+live    true    true    true    true    false   true    true    true    false   true    false   true    true    true    false   false
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    false   false   false
+live    false   false   false   true    false   true    true    true    true    true    false   true    true    false   true    true
+live    true    false   true    true    false   true    true    false   false   true    true    true    true    true    false   true
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    false   false   true
+live    false   false   true    true    true    true    true    true    false   false   true    true    true    false   false   true
+die     false   false   false   false   false   false   true    true    false   true    true    true    true    true    false   false
+live    true    false   true    false   false   false   true    false   false   true    true    true    true    true    false   false
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    false   false   false
+die     false   false   false   true    false   false   false   true    true    false   true    true    true    true    true    true
+live    false   false   true    true    false   true    true    true    false   true    true    true    true    true    true    false
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    false   false   false
+live    false   true    false   true    true    true    true    true    false   true    true    true    true    false   false   false
+live    true    false   true    true    false   true    true    true    true    true    true    true    true    false   false   false
+live    false   true    false   true    true    true    true    false   true    true    true    true    true    true    false   false
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    false   false   true
+die     false   false   true    true    false   false   false   true    false   true    false   false   false   true    false   true
+die     true    false   true    true    false   true    true    false   false   false   false   true    true    true    true    false
+live    false   false   true    true    false   true    true    false   false   false   false   false   false   true    true    true
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    true    false   false
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    false   false   true
+die     false   false   false   true    false   false   true    true    true    false   false   true    true    true    false   true
+live    true    false   true    true    true    true    true    true    false   false   false   true    true    true    false   true
+live    true    false   false   false   true    true    true    false   false   true    true    true    true    true    true    true
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    false   true    false
+die     false   false   false   true    true    true    true    true    false   true    true    true    true    false   false   true
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    true    false   false
+live    true    false   false   true    false   true    true    true    true    true    true    true    true    true    false   true
+die     false   false   true    true    false   false   false   true    true    true    false   false   true    true    true    true
+live    false   false   true    true    false   true    true    true    false   true    true    true    true    false   true    true
+die     false   false   false   true    false   false   true    false   false   true    false   true    true    true    true    false
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    false   false   false
+live    true    false   true    true    true    true    true    true    true    true    true    true    true    true    false   true
+live    false   true    false   false   true    true    true    true    true    true    true    true    true    false   false   false
+live    false   false   false   true    true    true    true    true    false   true    false   true    true    false   false   false
+live    false   false   true    true    false   false   false   true    true    true    true    true    true    false   false   false
+live    true    false   false   false   false   false   true    true    true    true    true    true    true    true    false   false
+live    true    false   false   true    true    true    true    true    true    true    true    true    true    true    false   true
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    true    true    false
+live    false   false   true    true    false   false   false   true    false   true    false   true    true    true    true    true
+live    true    false   false   true    false   true    true    false   true    true    true    true    true    false   false   false
+die     true    false   true    true    false   false   false   true    true    true    false   false   true    true    false   false
+die     false   false   true    true    false   true    true    true    true    true    false   true    true    false   false   false
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    false   false   false
+live    false   false   true    true    false   false   false   true    true    true    false   true    false   true    false   false
+die     false   false   true    true    true    true    true    true    true    true    false   true    false   true    false   true
+live    false   false   true    false   false   true    true    true    false   false   true    true    true    true    false   false
+live    false   false   true    true    false   true    true    true    true    true    true    true    true    false   false   false
+die     false   false   true    true    false   false   true    true    false   true    false   false   false   true    false   true
+live    false   false   false   true    false   true    true    true    true    true    true    true    true    true    true    true
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    false   true    false
+live    true    false   false   true    true    true    true    true    true    true    true    true    true    false   false   false
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    false   false   false
+live    true    true    true    true    false   true    true    true    true    true    true    true    true    true    true    true
+live    true    false   true    false   false   true    true    true    false   true    true    true    true    true    false   true
+die     false   false   true    true    false   false   false   true    true    true    false   false   false   true    true    true
+live    false   false   true    true    false   true    true    true    false   true    true    true    true    false   false   false
+live    false   false   false   false   false   false   false   true    false   true    false   true    true    false   false   false
+live    false   false   false   true    false   false   false   true    false   true    true    true    true    true    false   false
+live    false   true    false   false   true    true    true    true    false   true    true    true    true    false   false   false
+live    false   false   true    true    false   false   true    true    true    true    true    true    true    false   false   false
+live    false   false   false   true    true    true    true    true    true    true    true    true    true    false   false   false
+live    true    false   true    true    true    true    true    false   false   true    false   true    true    false   false   true
+live    true    false   false   true    false   true    true    false   false   true    true    true    true    true    false   false
+live    true    true    true    true    false   false   true    true    false   true    false   true    true    true    true    false
+live    true    false   true    true    false   true    true    true    false   false   false   true    false   true    false   true
+live    false   false   false   true    true    true    true    true    true    true    true    true    true    true    false   true
+die     false   false   false   true    false   false   false   true    false   true    false   false   false   true    false   true
+die     false   false   true    true    false   true    true    true    true    false   false   false   true    true    false   true
+live    false   false   false   false   false   false   true    true    true    true    true    true    true    true    false   false
+live    false   true    true    true    false   false   false   false   false   true    false   true    true    false   false   true
+die     false   false   false   true    false   false   true    true    false   true    false   false   false   true    true    true
+live    true    false   false   true    false   false   false   true    false   false   false   true    false   true    true    true
+live    true    false   true    true    false   false   true    true    false   false   false   false   true    false   false   true
+live    false   false   false   true    true    true    true    false   false   false   true    true    true    false   false   false
+live    false   true    false   true    false   false   false   false   false   false   false   true    true    true    false   false
+live    false   false   true    false   false   false   false   true    true    true    false   true    true    false   false   false
+live    false   true    true    false   false   false   false   true    true    true    true    true    true    false   false   false
+die     false   false   true    true    false   false   true    true    false   true    true    false   false   true    false   true
+live    false   false   true    true    true    true    true    true    true    false   true    true    true    true    false   true
+live    true    false   false   true    false   false   true    true    true    true    true    false   true    true    false   true
+live    false   true    true    true    false   false   true    true    false   true    true    true    true    true    true    false
+live    false   false   false   true    false   false   true    true    false   true    false   true    true    false   true    true
+live    false   false   false   true    false   true    true    true    true    true    true    true    true    true    false   true
+live    false   false   true    false   false   true    true    true    false   true    true    true    true    false   false   false
+live    false   false   false   true    false   false   false   true    true    true    true    false   true    true    false   false
+live    false   false   false   false   true    true    true    false   false   true    true    true    true    false   false   false
+live    false   true    true    false   false   true    true    true    true    true    true    true    true    false   false   false
+die     true    false   true    true    false   true    true    true    false   false   true    false   false   true    false   true
+live    false   false   false   true    true    true    true    true    true    true    true    true    true    true    false   false
+live    false   false   false   true    false   false   false   true    true    true    true    true    true    false   false   false
+live    false   false   false   true    false   true    true    true    false   true    true    true    true    false   true    false
+live    false   false   false   true    false   false   false   true    true    true    true    true    true    true    true    true
+live    false   true    false   true    false   false   true    true    true    false   true    true    true    true    false   false
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    false   false   false
+live    false   false   false   true    false   true    true    false   false   true    false   true    true    true    false   false
+die     true    false   false   true    false   false   false   false   false   true    false   true    true    true    true    true
+live    false   false   true    true    false   true    true    true    true    true    true    true    true    true    false   false
+die     false   false   false   true    false   false   true    true    true    false   true    true    false   false   false   true
+live    false   false   true    true    false   false   false   true    true    false   true    true    true    true    true    false
+live    false   false   true    true    false   false   false   false   false   false   false   true    true    true    false   false
+live    false   false   false   true    false   true    true    true    false   true    true    true    true    true    true    true
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    true    false   false
+live    false   false   true    false   false   true    true    true    false   true    false   true    true    true    true    false
+live    true    false   true    true    true    true    true    true    true    true    true    true    true    true    false   false
+
+Building Tree...
+
+        ASCITES = True:
+                SPIDERS = True:
+                        VARICES = True:
+                                STEROID = True:
+                                        Class live, prob=1.00
+                                STEROID = False:
+                                        SPLEENPALPABLE = True:
+                                                FIRMLIVER = True:
+                                                        Class live, prob=1.00
+                                                FIRMLIVER = False:
+                                                        BIGLIVER = True:
+                                                                SGOT = True:
+                                                                        Class live, prob=1.00
+                                                                SGOT = False:
+                                                                        FEMALE = True:
+                                                                                Class live, prob=1.00
+                                                                        FEMALE = False:
+                                                                                ANOREXIA = True:
+                                                                                        Class die, prob=1.00
+                                                                                ANOREXIA = False:
+                                                                                        Class live, prob=1.00
+                                                        BIGLIVER = False:
+                                                                Class live, prob=1.00
+                                        SPLEENPALPABLE = False:
+                                                ANOREXIA = True:
+                                                        Class live, prob=1.00
+                                                ANOREXIA = False:
+                                                        Class die, prob=1.00
+                        VARICES = False:
+                                Class die, prob=1.00
+                SPIDERS = False:
+                        FIRMLIVER = True:
+                                ANOREXIA = True:
+                                        SGOT = True:
+                                                Class live, prob=1.00
+                                        SGOT = False:
+                                                Class die, prob=1.00
+                                ANOREXIA = False:
+                                        Class live, prob=1.00
+                        FIRMLIVER = False:
+                                SGOT = True:
+                                        BIGLIVER = True:
+                                                Class live, prob=1.00
+                                        BIGLIVER = False:
+                                                Class die, prob=1.00
+                                SGOT = False:
+                                        Class live, prob=1.00
+        ASCITES = False:
+                BIGLIVER = True:
+                        VARICES = True:
+                                FIRMLIVER = True:
+                                        STEROID = True:
+                                                Class die, prob=1.00
+                                        STEROID = False:
+                                                BILIRUBIN = True:
+                                                        Class live, prob=1.00
+                                                BILIRUBIN = False:
+                                                        Class die, prob=1.00
+                                FIRMLIVER = False:
+                                        Class live, prob=1.00
+                        VARICES = False:
+                                Class die, prob=1.00
+                BIGLIVER = False:
+                        Class live, prob=1.00
+
+Loading test data...
+
+Number of attributes: 16
+Number of instances: 25
+Number of categories: 2
+die: 5 (20.0%)
+live: 20 (80.0%)
+
+Attributes: AGE FEMALE STEROID ANTIVIRALS FATIGUE MALAISE ANOREXIA BIGLIVER FIRMLIVER SPLEENPALPABLE SPIDERS ASCITES VARICES BILIRUBIN SGOT HISTOLOGY 
+------------------------------------------------------------------------------------------------------------------------------------------------
+live    true    true    false   true    false   true    true    true    true    false   false   true    false   true    false   true
+die     false   false   false   true    false   false   false   true    true    false   false   true    false   true    false   true
+live    false   false   false   true    false   false   false   true    true    true    false   false   true    true    true    true
+live    false   false   true    true    false   false   true    true    true    true    true    true    true    false   true    false
+live    false   false   false   true    false   false   false   false   false   true    false   true    false   true    false   true
+live    false   false   false   true    true    true    true    true    true    true    true    true    true    false   false   false
+die     false   false   true    true    false   true    true    true    false   false   false   true    false   true    true    true
+live    false   false   true    false   true    true    true    true    true    true    true    true    true    false   false   false
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    false   false   true
+live    false   false   false   true    false   true    true    true    false   false   true    true    true    true    false   false
+live    false   false   true    false   true    true    true    true    true    true    true    true    true    true    false   true
+live    false   false   true    true    true    true    true    true    false   true    false   true    false   true    true    true
+live    false   false   true    true    false   true    true    true    true    true    true    true    true    false   false   false
+live    false   false   false   true    false   false   true    true    true    true    true    true    true    true    false   false
+die     true    false   false   true    false   false   true    true    true    true    false   false   true    true    false   true
+die     true    false   false   true    false   false   true    true    false   false   false   true    true    true    true    true
+live    false   false   false   true    true    true    true    true    true    false   true    true    true    false   false   false
+live    false   false   false   false   false   false   false   false   false   true    true    true    true    false   false   true
+die     false   false   false   false   false   false   true    true    true    true    false   true    true    false   false   true
+live    true    false   true    true    false   true    true    true    true    true    true    true    true    true    false   false
+live    true    false   false   false   true    true    true    true    true    true    true    true    true    false   false   false
+live    true    true    false   true    false   true    true    false   false   false   false   true    true    false   true    true
+live    true    false   true    true    true    true    true    true    true    true    true    true    true    true    false   true
+live    false   false   true    true    true    true    true    true    true    true    true    true    true    true    true    false
+live    true    false   false   true    false   true    true    true    true    true    true    true    true    false   false   false
+
+Making predictions of each test instance using a decision tree:
+Instance 1: Prediction = die, Actual = live     Fail...
+Instance 2: Prediction = live, Actual = die     Fail...
+Instance 3: Prediction = live, Actual = live    Success!
+Instance 4: Prediction = live, Actual = live    Success!
+Instance 5: Prediction = live, Actual = live    Success!
+Instance 6: Prediction = live, Actual = live    Success!
+Instance 7: Prediction = live, Actual = die     Fail...
+Instance 8: Prediction = live, Actual = live    Success!
+Instance 9: Prediction = live, Actual = live    Success!
+Instance 10: Prediction = live, Actual = live   Success!
+Instance 11: Prediction = live, Actual = live   Success!
+Instance 12: Prediction = live, Actual = live   Success!
+Instance 13: Prediction = live, Actual = live   Success!
+Instance 14: Prediction = live, Actual = live   Success!
+Instance 15: Prediction = live, Actual = die    Fail...
+Instance 16: Prediction = live, Actual = die    Fail...
+Instance 17: Prediction = live, Actual = live   Success!
+Instance 18: Prediction = live, Actual = live   Success!
+Instance 19: Prediction = die, Actual = die     Success!
+Instance 20: Prediction = live, Actual = live   Success!
+Instance 21: Prediction = live, Actual = live   Success!
+Instance 22: Prediction = die, Actual = live    Fail...
+Instance 23: Prediction = live, Actual = live   Success!
+Instance 24: Prediction = live, Actual = live   Success!
+Instance 25: Prediction = live, Actual = live   Success!
+
+Accuracy: 76.0%

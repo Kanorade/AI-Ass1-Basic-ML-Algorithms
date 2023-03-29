@@ -169,7 +169,7 @@ public class DecTree {
             }
         }
         float probability = (float)maxFreq / instances.size();
-        return new Node(bestCat, probability, instances.size());
+        return new Node(bestCat, probability);
     }
     /**
      * Convenience method for counting the number of each category for the list of instances.
@@ -335,7 +335,6 @@ class Node {
     /* Leaf node Attributes, is null otherwise */
     private String category;
     private float probability; // only time this value is called is when printing the report
-    private int numInstances;
 
     /**
      * Constructor for a non-leaf node
@@ -358,10 +357,9 @@ class Node {
      * @param category The resulting category for the classifier
      * @param probability The probability of this category being true according to the training data
      */
-    public Node(String category, float probability, int numInstances) {
+    public Node(String category, float probability) {
         this.category = category;
         this.probability = probability;
-        this.numInstances = numInstances;
         isLeaf = true;
 
         ifTrueNode = null;
@@ -422,7 +420,7 @@ class Node {
             if (probability==0){ //Error-checking
                 System.out.printf("%sUnknown%n", indent);
             }else{
-                System.out.printf("%sClass %s, prob=%.2f, no. instances=%d%n", indent, category, probability, numInstances);
+                System.out.printf("%sClass %s, prob=%.2f%n", indent, category, probability);
             }
         } else {
             System.out.printf("%s%s = True:%n", indent, attribute);
