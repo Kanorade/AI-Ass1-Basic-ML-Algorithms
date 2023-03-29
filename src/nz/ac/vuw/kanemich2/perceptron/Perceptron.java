@@ -4,16 +4,13 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Perceptron {
     private record Instance(ArrayList<Double> inputs, String classifier, int d){}
     private List<Instance> instances;
-    private final static int MAX_ITERATIONS = 100;
     private Map<String, Integer> classifiers;
+    private final static int MAX_ITERATIONS = 100;
     private final static double LEARNING_RATE = 0.1;
 
 
@@ -72,14 +69,20 @@ public class Perceptron {
     }
 
     private void buildPerceptron() {
+        System.out.println("Building perceptron with learning rate of " + LEARNING_RATE);
         // Initialise weights
         List<Double> weights = new ArrayList<>();
+        Random rd = new Random();
         for (int i = 0; i < instances.get(0).inputs.size() + 1; i++) {  //one extra weight for the bias
-            weights.add(0.0);
+            //weights.add(rd.nextDouble());
+            weights.add(0.0);   // all weights are initially zero, if wanting random weights comment
+                                // this out and uncomment the line above
         }
-
+        int failCount = 0;
         for (int z = 0; z < MAX_ITERATIONS; z++) {
+            // reset counts
             int successCount = 0;
+            failCount = 0;
             for (Instance inst: instances) {
                 int wi = 0;  // Setting weight index
                 double sum = weights.get(wi);    // Starting sum with weight w0
@@ -100,6 +103,7 @@ public class Perceptron {
                 if (y == d) {
                     successCount++;    // No learning taking place
                 } else {
+                    failCount++;
                     // adjust weights
                     // resetting weight index
                     wi = 0;
@@ -115,14 +119,18 @@ public class Perceptron {
                     }
                 }
             }
-            System.out.println("\nIteration: " + (z+1));
-            System.out.println("Success rate: " + successCount + " out of " + instances.size() + " instances");
-            System.out.println("Accuracy: " + (double)successCount/instances.size()*100 + "%");
+//            System.out.println("\nIteration: " + (z+1));
+//            System.out.println("Success rate: " + successCount + " out of " + instances.size() + " instances");
+//            System.out.println("Accuracy: " + (double)successCount/instances.size()*100 + "%");
             if (successCount == instances.size()) {
+                System.out.println("\nSuccessfully converged!");
+                System.out.println("Number of iterations to convergence: " + (z+1));
                 break;
             }
 
         }
+        System.out.println("\nFailed to converge after " + MAX_ITERATIONS + " iterations");
+        System.out.println("Number of instances still classified wrongly: " + failCount);
         System.out.println("\nFinal weights:\n" + weights);
     }
     public static void main(String[] args) {
