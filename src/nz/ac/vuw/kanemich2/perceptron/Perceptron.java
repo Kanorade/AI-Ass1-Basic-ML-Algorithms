@@ -9,9 +9,12 @@ import java.util.*;
 public class Perceptron {
     private record Instance(ArrayList<Double> inputs, String classifier, int d){}
     private List<Instance> instances;
+    private List<Instance> trainSet;
+    private List<Instance> testSet;
     private Map<String, Integer> classifiers;
     private final static int MAX_ITERATIONS = 100;
     private final static double LEARNING_RATE = 0.1;
+    private List<Double> finalWeights;
 
 
     public Perceptron(String[] args) {
@@ -28,6 +31,12 @@ public class Perceptron {
             instances = readFile(args[0]);
             System.out.println("Number of instances loaded: " + instances.size());
             System.out.println("Number of inputs per instance: " + instances.get(0).inputs.size());
+
+            System.out.println("\nSplitting instances into training and test sets");
+            trainSet = instances.subList(0, instances.size()/2);
+            testSet = instances.subList(instances.size()/2, instances.size());
+            System.out.println("Number of training instances: " + trainSet.size());
+            System.out.println("Number of test instances: " + testSet.size());
         }
     }
 
@@ -64,16 +73,15 @@ public class Perceptron {
             System.out.println("Something went wrong reading the file: " + fileName);
             throw new RuntimeException(e);
         }
-
         return fileData;
     }
 
     private void buildPerceptron() {
-        System.out.println("Building perceptron with learning rate of " + LEARNING_RATE);
+        System.out.println("\nBuilding perceptron with learning rate of " + LEARNING_RATE);
         // Initialise weights
         List<Double> weights = new ArrayList<>();
         Random rd = new Random();
-        for (int i = 0; i < instances.get(0).inputs.size() + 1; i++) {  //one extra weight for the bias
+        for (int i = 0; i < trainSet.get(0).inputs.size() + 1; i++) {  //one extra weight for the bias
             //weights.add(rd.nextDouble());
             weights.add(0.0);   // all weights are initially zero, if wanting random weights comment
                                 // this out and uncomment the line above
@@ -83,7 +91,7 @@ public class Perceptron {
             // reset counts
             int successCount = 0;
             failCount = 0;
-            for (Instance inst: instances) {
+            for (Instance inst: trainSet) {
                 int wi = 0;  // Setting weight index
                 double sum = weights.get(wi);    // Starting sum with weight w0
 
@@ -122,20 +130,52 @@ public class Perceptron {
 //            System.out.println("\nIteration: " + (z+1));
 //            System.out.println("Success rate: " + successCount + " out of " + instances.size() + " instances");
 //            System.out.println("Accuracy: " + (double)successCount/instances.size()*100 + "%");
-            if (successCount == instances.size()) {
+            if (successCount == trainSet.size()) {
                 System.out.println("\nSuccessfully converged!");
                 System.out.println("Number of iterations to convergence: " + (z+1));
                 break;
             }
 
         }
-        System.out.println("\nFailed to converge after " + MAX_ITERATIONS + " iterations");
-        System.out.println("Number of instances still classified wrongly: " + failCount);
-        System.out.println("\nFinal weights:\n" + weights);
+
+        if (failCount != 0) {
+            System.out.println("\nFailed to converge after " + MAX_ITERATIONS + " iterations");
+            System.out.println("Number of instances still classified wrongly: " + failCount);
+        }
+        finalWeights = weights;
+        System.out.println("\nFinal weights:\n" + finalWeights);
+    }
+    private void makePredictions() {
+        System.out.println("\nUsing final weights for the test instances to make predictions:\n");
+        int successCount = 0;
+        //failCount = 0;
+        for (Instance inst: testSet) {
+            int wi = 0;
+            double sum = finalWeights.get(wi);    // Starting sum with weight w0
+            wi++;    // i = 1, referring to weight w1
+            for (double input : inst.inputs) {
+                sum += finalWeights.get(wi) * input;
+                wi++;
+            }
+            int y;              // Predicted value
+            int d = inst.d;     // Expected value
+            // Should probably give more meaningful variable names,
+            // but it was easier to visualise the math this way
+
+            if (sum > 0) y = 1;
+            else y = 0;
+
+            if (y == d) {
+                successCount++;    // No learning taking place
+            }
+        }
+        System.out.println("Number of instances, classified wrongly: " + (testSet.size()-successCount));
+        System.out.println("Accuracy: " + (double)successCount/testSet.size()*100 + "%");
     }
     public static void main(String[] args) {
         Perceptron p = new Perceptron(args);
         p.buildPerceptron();
+        p.makePredictions();
 
     }
 }

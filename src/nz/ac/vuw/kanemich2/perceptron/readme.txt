@@ -14,3 +14,12 @@ is either 'g', or 'b'.
 The perceptron will stop after 100 iterations, the learning rate is set to 0.1,
 and lastly, the initial weights are set 2 zero. If you want to change these
 numbers, you'll need to adjust them in the source code and recompile.
+
+I've included the source code and executable for a perceptron that splits
+the data into training and test sets. I've stored them in a separate folder to
+avoid confusion. They should run using the above command line too. you just need to use
+different jar file name instead.
+
+E.g.
+
+    java -jar ass1-perceptron-split.jar ionosphere.data
