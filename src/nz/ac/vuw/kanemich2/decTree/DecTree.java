@@ -109,20 +109,9 @@ public class DecTree {
      */
     private Node buildTree(List<Instance> instances, List<String> attributes) {
         if (instances.isEmpty()) {
-            // Can't use typical leaf building method as the list of instances is empty.
-            // Use the common category in the training set instead.
-            String bestCat = "";
-            int maxFreq = 0;
-            for (Map.Entry<String, Integer> cat : trainingSet.categoryNames.entrySet()) {
-                if (cat.getValue() > maxFreq) {
-                    bestCat = cat.getKey();
-                    maxFreq = cat.getValue();
-                }
-            }
-            float prob = (float)maxFreq / trainingSet.allInstances.size();
-            return new Node(bestCat, prob); // Leaf node
-        } else if (impurity(instances) == 0) {
-            return new Node(instances.get(0).getCategory(), 1f); // Leaf Node
+            return buildLeaf(trainingSet.allInstances);
+        } else if (impurity(instances) == 0.0) {
+            return buildLeaf(instances);
         } else if (attributes.isEmpty()) {
             return buildLeaf(instances);
         } else {
@@ -179,8 +168,8 @@ public class DecTree {
                 maxFreq = cat.getValue();
             }
         }
-        float probability = (float)maxFreq / trainingSet.allInstances.size();
-        return new Node(bestCat, probability);
+        float probability = (float)maxFreq / instances.size();
+        return new Node(bestCat, probability, instances.size());
     }
     /**
      * Convenience method for counting the number of each category for the list of instances.
@@ -346,6 +335,7 @@ class Node {
     /* Leaf node Attributes, is null otherwise */
     private String category;
     private float probability; // only time this value is called is when printing the report
+    private int numInstances;
 
     /**
      * Constructor for a non-leaf node
@@ -368,9 +358,10 @@ class Node {
      * @param category The resulting category for the classifier
      * @param probability The probability of this category being true according to the training data
      */
-    public Node(String category, float probability) {
+    public Node(String category, float probability, int numInstances) {
         this.category = category;
         this.probability = probability;
+        this.numInstances = numInstances;
         isLeaf = true;
 
         ifTrueNode = null;
@@ -378,7 +369,7 @@ class Node {
     }
 
     /**
-     * Getter method for the attribute. Returns null if doesn't exist.
+     * Getter method for the attribute. Returns null if it doesn't exist.
      * i.e. is a leaf node
      * @return The node's attribute
      */
@@ -395,7 +386,7 @@ class Node {
     }
 
     /**
-     * Getter method for the Node if the attribute is true. Returns null if doesn't exist.
+     * Getter method for the Node if the attribute is true. Returns null if it doesn't exist.
      * i.e. is a leaf node
      *
      * @return The ifTrueNode
@@ -404,7 +395,7 @@ class Node {
         return ifTrueNode;
     }
     /**
-     * Getter method for the Node if the attribute is false. Returns null if doesn't exist.
+     * Getter method for the Node if the attribute is false. Returns null if it doesn't exist.
      * i.e. is a leaf node
      *
      * @return The ifFalseNode
@@ -414,7 +405,7 @@ class Node {
     }
 
     /**
-     * Getter method for the category. Returns null if doesn't exist.
+     * Getter method for the category. Returns null if it doesn't exist.
      * i.e. is a branch node
      * @return This node's category
      */
@@ -431,7 +422,7 @@ class Node {
             if (probability==0){ //Error-checking
                 System.out.printf("%sUnknown%n", indent);
             }else{
-                System.out.printf("%sClass %s, prob=%.2f%n", indent, category, probability);
+                System.out.printf("%sClass %s, prob=%.2f, no. instances=%d%n", indent, category, probability, numInstances);
             }
         } else {
             System.out.printf("%s%s = True:%n", indent, attribute);
