@@ -1,7 +1,7 @@
 # Basic Machine Learning Algorithms
 Assignment 1 for *Fundamentals of AI* course
 ---
-Also provided are the original files submitted for the assignment (the zip file) and report. 
+Also provided are the original files submitted for the assignment (*ass1-submission.zip*) and the report(*ass1-report.pdf*). 
 
 Upon downloading and extracting from the zip file, the assignment is seperated into 3 parts. Each part depicting a different algorithm and will have the following: 
 - an executable jar
